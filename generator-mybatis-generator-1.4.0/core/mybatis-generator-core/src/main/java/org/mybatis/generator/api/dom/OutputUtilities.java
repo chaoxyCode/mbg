@@ -53,7 +53,8 @@ public class OutputUtilities {
      */
     public static void xmlIndent(StringBuilder sb, int indentLevel) {
         for (int i = 0; i < indentLevel; i++) {
-            sb.append("  "); // $NON-NLS-1$
+            // 控制生成的 xml 文件中空格的缩进，默认是两个空格 改为四个空格
+            sb.append("    "); // $NON-NLS-1$
         }
     }
 }

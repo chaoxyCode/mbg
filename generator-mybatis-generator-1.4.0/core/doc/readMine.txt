@@ -1,0 +1,15 @@
+
+
+
+源码修改参考：
+    http://www.mybatis.org/generator/index.html
+	https://blog.csdn.net/xp_lx1/article/details/80074738
+	https://www.jianshu.com/p/b08ab61ee5e8
+	http://www.cnblogs.com/sz-zzm/p/5815834.html
+    https://so.csdn.net/so/search/s.do?q=Mybatis&t=blog&u=u011781521
+    https://blog.csdn.net/paincupid/article/details/52645610
+    https://blog.csdn.net/qq_38212332/article/details/81605035
+    https://blog.csdn.net/wu6660563/article/details/52093364
+
+详细步骤参考：
+    mbg1.3.7源码修改.docx
