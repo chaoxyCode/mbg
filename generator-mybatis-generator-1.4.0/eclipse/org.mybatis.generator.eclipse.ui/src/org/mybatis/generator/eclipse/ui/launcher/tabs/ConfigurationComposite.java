@@ -1,25 +1,17 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
+ * Copyright 2006-2016 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.eclipse.ui.launcher.tabs;
-
-import static org.mybatis.generator.eclipse.ui.launcher.tabs.LauncherUtils.getTextOrBlank;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -42,12 +34,17 @@ import org.eclipse.swt.widgets.Group;
 import org.mybatis.generator.eclipse.ui.Messages;
 import org.mybatis.generator.eclipse.ui.content.ConfigVerifyer;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.mybatis.generator.eclipse.ui.launcher.tabs.LauncherUtils.getTextOrBlank;
+
 /**
- * It is a bit of an extravagance to have this in a separate class from the tab,
- * but doing so allows us to use the Eclipse SWT designer.
- * 
- * @author Jeff Butler
+ * It is a bit of an extravagance to have this in a separate class from the tab, but doing so allows
+ * us to use the Eclipse SWT designer.
  *
+ * @author Jeff Butler
  */
 public class ConfigurationComposite extends AbstractGeneratorComposite {
     private ConfigurationTab configurationTab;
@@ -55,11 +52,12 @@ public class ConfigurationComposite extends AbstractGeneratorComposite {
 
     /**
      * Create the composite.
-     * 
+     *
      * @param parent
      * @param style
      */
-    public ConfigurationComposite(Composite parent, int style, final ConfigurationTab configurationTab) {
+    public ConfigurationComposite(
+            Composite parent, int style, final ConfigurationTab configurationTab) {
         super(parent, style);
         this.configurationTab = configurationTab;
         setLayout(new GridLayout(1, false));
@@ -75,17 +73,18 @@ public class ConfigurationComposite extends AbstractGeneratorComposite {
         loggingButtonGroup.setLayout(groupLayout);
         loggingButtonGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
         loggingButtonGroup.setFont(this.getFont());
-        
-        SelectionListener listener = new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                Button button = (Button) e.widget;
-                if (button.getSelection()) {
-                    updateLaunchConfigurationDialog();
-                }
-            }
-        };
-        
+
+        SelectionListener listener =
+                new SelectionAdapter() {
+                    @Override
+                    public void widgetSelected(SelectionEvent e) {
+                        Button button = (Button) e.widget;
+                        if (button.getSelection()) {
+                            updateLaunchConfigurationDialog();
+                        }
+                    }
+                };
+
         for (LoggingButtonData data : LoggingButtonData.values()) {
             Button b = new Button(loggingButtonGroup, SWT.RADIO);
             b.setText(data.displayText());
@@ -98,8 +97,10 @@ public class ConfigurationComposite extends AbstractGeneratorComposite {
     public boolean isValid() {
         try {
             String fileName = txtFileName.getText();
-            String fullPath = VariablesPlugin.getDefault().getStringVariableManager()
-                    .performStringSubstitution(fileName);
+            String fullPath =
+                    VariablesPlugin.getDefault()
+                            .getStringVariableManager()
+                            .performStringSubstitution(fileName);
             File file = new File(fullPath);
             if (file.exists()) {
                 ConfigVerifyer cv = new ConfigVerifyer(file);
@@ -123,12 +124,14 @@ public class ConfigurationComposite extends AbstractGeneratorComposite {
         selectLoggingButton(getTextOrBlank(configuration, ATTR_LOGGING_IMPLEMENTATION));
         txtFileName.setText(getTextOrBlank(configuration, ATTR_CONFIGURATION_FILE_NAME));
         try {
-            javaProjectName = configuration.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, (String) null);
+            javaProjectName =
+                    configuration.getAttribute(
+                            IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, (String) null);
         } catch (CoreException e) {
             javaProjectName = null;
         }
     }
-    
+
     private void selectLoggingButton(String setting) {
         deselectAllLoggingButtons();
 
@@ -136,7 +139,7 @@ public class ConfigurationComposite extends AbstractGeneratorComposite {
             selectDefaultLoggingButton();
             return;
         }
-        
+
         try {
             LoggingButtonData data = LoggingButtonData.valueOf(setting);
             Button button = loggingButtonMap.get(data);
@@ -145,7 +148,7 @@ public class ConfigurationComposite extends AbstractGeneratorComposite {
             selectDefaultLoggingButton();
         }
     }
-    
+
     private void deselectAllLoggingButtons() {
         for (Button button : loggingButtonMap.values()) {
             button.setSelection(false);
@@ -161,7 +164,7 @@ public class ConfigurationComposite extends AbstractGeneratorComposite {
             }
         }
     }
-    
+
     private Button getSelectedLoggingButton() {
         Button rc = null;
         for (Button button : loggingButtonMap.values()) {
@@ -171,7 +174,7 @@ public class ConfigurationComposite extends AbstractGeneratorComposite {
         }
         return rc;
     }
-    
+
     public void performApply(ILaunchConfigurationWorkingCopy configuration) {
         Button button = getSelectedLoggingButton();
         LoggingButtonData data = (LoggingButtonData) button.getData();
@@ -180,9 +183,10 @@ public class ConfigurationComposite extends AbstractGeneratorComposite {
         } else {
             configuration.setAttribute(ATTR_LOGGING_IMPLEMENTATION, data.name());
         }
-        
+
         configuration.setAttribute(ATTR_CONFIGURATION_FILE_NAME, txtFileName.getText());
-        configuration.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, javaProjectName);
+        configuration.setAttribute(
+                IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, javaProjectName);
     }
 
     @Override
@@ -197,7 +201,7 @@ public class ConfigurationComposite extends AbstractGeneratorComposite {
 
     @Override
     protected String[] getAcceptableFileExtension() {
-        return new String[] { "*.*", "*.xml" }; //$NON-NLS-1$ //$NON-NLS-2$
+        return new String[] {"*.*", "*.xml"}; // $NON-NLS-1$ //$NON-NLS-2$
     }
 
     @Override

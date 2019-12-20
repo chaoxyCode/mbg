@@ -1,25 +1,22 @@
 /**
- *    Copyright 2006-2018 the original author or authors.
+ * Copyright 2006-2018 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mbg.test.mb3.annotated.conditional;
 
-import static mbg.test.common.util.TestUtilities.blobsAreEqual;
-import static mbg.test.common.util.TestUtilities.datesAreEqual;
-import static mbg.test.common.util.TestUtilities.generateRandomBlob;
-import static mbg.test.common.util.TestUtilities.timesAreEqual;
-import static org.junit.jupiter.api.Assertions.*;
+import mbg.test.mb3.generated.annotated.conditional.mapper.*;
+import mbg.test.mb3.generated.annotated.conditional.model.*;
+import org.apache.ibatis.session.SqlSession;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -27,44 +24,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-import org.junit.jupiter.api.Test;
+import static mbg.test.common.util.TestUtilities.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import mbg.test.mb3.generated.annotated.conditional.mapper.AwfulTableMapper;
-import mbg.test.mb3.generated.annotated.conditional.mapper.FieldsblobsMapper;
-import mbg.test.mb3.generated.annotated.conditional.mapper.FieldsonlyMapper;
-import mbg.test.mb3.generated.annotated.conditional.mapper.PkblobsMapper;
-import mbg.test.mb3.generated.annotated.conditional.mapper.PkfieldsMapper;
-import mbg.test.mb3.generated.annotated.conditional.mapper.PkfieldsblobsMapper;
-import mbg.test.mb3.generated.annotated.conditional.mapper.PkonlyMapper;
-import mbg.test.mb3.generated.annotated.conditional.model.AwfulTable;
-import mbg.test.mb3.generated.annotated.conditional.model.AwfulTableExample;
-import mbg.test.mb3.generated.annotated.conditional.model.Fieldsblobs;
-import mbg.test.mb3.generated.annotated.conditional.model.FieldsblobsExample;
-import mbg.test.mb3.generated.annotated.conditional.model.FieldsblobsWithBLOBs;
-import mbg.test.mb3.generated.annotated.conditional.model.Fieldsonly;
-import mbg.test.mb3.generated.annotated.conditional.model.FieldsonlyExample;
-import mbg.test.mb3.generated.annotated.conditional.model.Pkblobs;
-import mbg.test.mb3.generated.annotated.conditional.model.PkblobsExample;
-import mbg.test.mb3.generated.annotated.conditional.model.Pkfields;
-import mbg.test.mb3.generated.annotated.conditional.model.PkfieldsExample;
-import mbg.test.mb3.generated.annotated.conditional.model.PkfieldsKey;
-import mbg.test.mb3.generated.annotated.conditional.model.Pkfieldsblobs;
-import mbg.test.mb3.generated.annotated.conditional.model.PkfieldsblobsExample;
-import mbg.test.mb3.generated.annotated.conditional.model.PkfieldsblobsKey;
-import mbg.test.mb3.generated.annotated.conditional.model.PkonlyExample;
-import mbg.test.mb3.generated.annotated.conditional.model.PkonlyKey;
-
-/**
- * @author Jeff Butler
- * 
- */
+/** @author Jeff Butler */
 public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
 
     @Test
     public void testFieldsOnlyInsert() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        
+
         try {
             FieldsonlyMapper mapper = sqlSession.getMapper(FieldsonlyMapper.class);
             Fieldsonly record = new Fieldsonly();
@@ -80,10 +49,8 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             assertEquals(1, answer.size());
 
             Fieldsonly returnedRecord = answer.get(0);
-            assertEquals(record.getIntegerfield(), returnedRecord
-                    .getIntegerfield());
-            assertEquals(record.getDoublefield(), returnedRecord
-                    .getDoublefield());
+            assertEquals(record.getIntegerfield(), returnedRecord.getIntegerfield());
+            assertEquals(record.getDoublefield(), returnedRecord.getDoublefield());
             assertEquals(record.getFloatfield(), returnedRecord.getFloatfield());
         } finally {
             sqlSession.close();
@@ -449,24 +416,17 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             Pkfields returnedRecord = mapper.selectByPrimaryKey(key);
             assertNotNull(returnedRecord);
 
-            assertTrue(datesAreEqual(record.getDatefield(), returnedRecord
-                    .getDatefield()));
-            assertEquals(record.getDecimal100field(), returnedRecord
-                    .getDecimal100field());
-            assertEquals(record.getDecimal155field(), returnedRecord
-                    .getDecimal155field());
-            assertEquals(record.getDecimal30field(), returnedRecord
-                    .getDecimal30field());
-            assertEquals(record.getDecimal60field(), returnedRecord
-                    .getDecimal60field());
+            assertTrue(datesAreEqual(record.getDatefield(), returnedRecord.getDatefield()));
+            assertEquals(record.getDecimal100field(), returnedRecord.getDecimal100field());
+            assertEquals(record.getDecimal155field(), returnedRecord.getDecimal155field());
+            assertEquals(record.getDecimal30field(), returnedRecord.getDecimal30field());
+            assertEquals(record.getDecimal60field(), returnedRecord.getDecimal60field());
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(record.getLastname(), returnedRecord.getLastname());
-            assertTrue(timesAreEqual(record.getTimefield(), returnedRecord
-                    .getTimefield()));
-            assertEquals(record.getTimestampfield(), returnedRecord
-                    .getTimestampfield());
+            assertTrue(timesAreEqual(record.getTimefield(), returnedRecord.getTimefield()));
+            assertEquals(record.getTimestampfield(), returnedRecord.getTimestampfield());
         } finally {
             sqlSession.close();
         }
@@ -537,25 +497,17 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
 
             Pkfields returnedRecord = mapper.selectByPrimaryKey(key);
 
-            assertTrue(datesAreEqual(record.getDatefield(), returnedRecord
-                    .getDatefield()));
-            assertEquals(record.getDecimal100field(), returnedRecord
-                    .getDecimal100field());
-            assertEquals(record.getDecimal155field(), returnedRecord
-                    .getDecimal155field());
-            assertEquals(record.getDecimal30field(), returnedRecord
-                    .getDecimal30field());
-            assertEquals(newRecord.getDecimal60field(), returnedRecord
-                    .getDecimal60field());
-            assertEquals(newRecord.getFirstname(), returnedRecord
-                    .getFirstname());
+            assertTrue(datesAreEqual(record.getDatefield(), returnedRecord.getDatefield()));
+            assertEquals(record.getDecimal100field(), returnedRecord.getDecimal100field());
+            assertEquals(record.getDecimal155field(), returnedRecord.getDecimal155field());
+            assertEquals(record.getDecimal30field(), returnedRecord.getDecimal30field());
+            assertEquals(newRecord.getDecimal60field(), returnedRecord.getDecimal60field());
+            assertEquals(newRecord.getFirstname(), returnedRecord.getFirstname());
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(record.getLastname(), returnedRecord.getLastname());
-            assertTrue(timesAreEqual(record.getTimefield(), returnedRecord
-                    .getTimefield()));
-            assertEquals(record.getTimestampfield(), returnedRecord
-                    .getTimestampfield());
+            assertTrue(timesAreEqual(record.getTimefield(), returnedRecord.getTimefield()));
+            assertEquals(record.getTimestampfield(), returnedRecord.getTimestampfield());
         } finally {
             sqlSession.close();
         }
@@ -1115,8 +1067,7 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             values.add(22);
 
             PkfieldsExample example = new PkfieldsExample();
-            example.createCriteria().andWierdFieldLessThan(40).andWierdFieldIn(
-                    values);
+            example.createCriteria().andWierdFieldLessThan(40).andWierdFieldIn(values);
 
             example.setOrderByClause("ID1, ID2");
             List<Pkfields> answer = mapper.selectByExample(example);
@@ -1197,12 +1148,12 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             example.setOrderByClause("ID1, ID2");
             List<Pkfields> answer = mapper.selectByExample(example);
             assertEquals(1, answer.size());
-            
+
             example.clear();
             example.createCriteria().andDatefieldLessThan(calendar.getTime());
             answer = mapper.selectByExample(example);
             assertEquals(5, answer.size());
-            
+
             calendar.set(Calendar.MINUTE, 12);
             example.clear();
             example.createCriteria().andTimefieldEqualTo(calendar.getTime());
@@ -1217,7 +1168,7 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             sqlSession.close();
         }
     }
-    
+
     @Test
     public void testPKFieldsCountByExample() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -1269,10 +1220,8 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
 
             Pkblobs returnedRecord = answer.get(0);
             assertEquals(record.getId(), returnedRecord.getId());
-            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord
-                    .getBlob1()));
-            assertTrue(blobsAreEqual(record.getBlob2(), returnedRecord
-                    .getBlob2()));
+            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
+            assertTrue(blobsAreEqual(record.getBlob2(), returnedRecord.getBlob2()));
         } finally {
             sqlSession.close();
         }
@@ -1328,10 +1277,8 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             Pkblobs returnedRecord = mapper.selectByPrimaryKey(3);
             assertNotNull(returnedRecord);
             assertEquals(record.getId(), returnedRecord.getId());
-            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord
-                    .getBlob1()));
-            assertTrue(blobsAreEqual(newRecord.getBlob2(), returnedRecord
-                    .getBlob2()));
+            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
+            assertTrue(blobsAreEqual(newRecord.getBlob2(), returnedRecord.getBlob2()));
         } finally {
             sqlSession.close();
         }
@@ -1575,8 +1522,7 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
             assertEquals(record.getLastname(), returnedRecord.getLastname());
-            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord
-                    .getBlob1()));
+            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
         } finally {
             sqlSession.close();
         }
@@ -1614,8 +1560,7 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             assertEquals(updateRecord.getLastname(), newRecord.getLastname());
             assertEquals(record.getId1(), newRecord.getId1());
             assertEquals(record.getId2(), newRecord.getId2());
-            assertTrue(blobsAreEqual(updateRecord.getBlob1(), newRecord
-                    .getBlob1()));
+            assertTrue(blobsAreEqual(updateRecord.getBlob1(), newRecord.getBlob1()));
         } finally {
             sqlSession.close();
         }
@@ -1685,12 +1630,10 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             key.setId2(4);
             Pkfieldsblobs returnedRecord = mapper.selectByPrimaryKey(key);
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
-            assertEquals(updateRecord.getLastname(), returnedRecord
-                    .getLastname());
+            assertEquals(updateRecord.getLastname(), returnedRecord.getLastname());
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
-            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord
-                    .getBlob1()));
+            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
         } finally {
             sqlSession.close();
         }
@@ -1877,7 +1820,7 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
 
             PkfieldsblobsExample example = new PkfieldsblobsExample();
             example.createCriteria().andId2EqualTo(6);
-            example.setOrderByClause("ID1");  // test for Issue 174
+            example.setOrderByClause("ID1"); // test for Issue 174
             List<Pkfieldsblobs> answer = mapper.selectByExampleWithBLOBs(example);
             assertEquals(1, answer.size());
 
@@ -1977,7 +1920,7 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             record.setBlob1(generateRandomBlob());
             record.setBlob2(generateRandomBlob());
             mapper.insert(record);
-            
+
             FieldsblobsExample example = new FieldsblobsExample();
             example.createCriteria().andFirstnameEqualTo("Bob");
             List<FieldsblobsWithBLOBs> answer = mapper.selectByExampleWithBLOBs(example);
@@ -1986,10 +1929,8 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             FieldsblobsWithBLOBs returnedRecord = answer.get(0);
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
             assertEquals(record.getLastname(), returnedRecord.getLastname());
-            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord
-                    .getBlob1()));
-            assertTrue(blobsAreEqual(record.getBlob2(), returnedRecord
-                    .getBlob2()));
+            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
+            assertTrue(blobsAreEqual(record.getBlob2(), returnedRecord.getBlob2()));
         } finally {
             sqlSession.close();
         }
@@ -2188,25 +2129,20 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             Integer generatedCustomerId = record.getCustomerId();
             assertEquals(57, generatedCustomerId.intValue());
 
-            AwfulTable returnedRecord = mapper
-                    .selectByPrimaryKey(generatedCustomerId);
+            AwfulTable returnedRecord = mapper.selectByPrimaryKey(generatedCustomerId);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
-            assertEquals(record.getEmailaddress(), returnedRecord
-                    .getEmailaddress());
-            assertEquals(record.getFirstFirstName(), returnedRecord
-                    .getFirstFirstName());
+            assertEquals(record.getEmailaddress(), returnedRecord.getEmailaddress());
+            assertEquals(record.getFirstFirstName(), returnedRecord.getFirstFirstName());
             assertEquals(record.getFrom(), returnedRecord.getFrom());
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(record.getId5(), returnedRecord.getId5());
             assertEquals(record.getId6(), returnedRecord.getId6());
             assertEquals(record.getId7(), returnedRecord.getId7());
-            assertEquals(record.getSecondFirstName(), returnedRecord
-                    .getSecondFirstName());
-            assertEquals(record.getThirdFirstName(), returnedRecord
-                    .getThirdFirstName());
+            assertEquals(record.getSecondFirstName(), returnedRecord.getSecondFirstName());
+            assertEquals(record.getThirdFirstName(), returnedRecord.getThirdFirstName());
         } finally {
             sqlSession.close();
         }
@@ -2236,13 +2172,11 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             Integer generatedCustomerId = record.getCustomerId();
             assertEquals(57, generatedCustomerId.intValue());
 
-            AwfulTable returnedRecord = mapper
-                    .selectByPrimaryKey(generatedCustomerId);
+            AwfulTable returnedRecord = mapper.selectByPrimaryKey(generatedCustomerId);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
-            assertEquals(record.getEmailaddress(), returnedRecord
-                    .getEmailaddress());
+            assertEquals(record.getEmailaddress(), returnedRecord.getEmailaddress());
             assertEquals("Mabel", returnedRecord.getFirstFirstName());
             assertEquals(record.getFrom(), returnedRecord.getFrom());
             assertEquals(record.getId1(), returnedRecord.getId1());
@@ -2250,15 +2184,13 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             assertEquals(record.getId5(), returnedRecord.getId5());
             assertEquals(record.getId6(), returnedRecord.getId6());
             assertEquals(record.getId7(), returnedRecord.getId7());
-            assertEquals(record.getSecondFirstName(), returnedRecord
-                    .getSecondFirstName());
-            assertEquals(record.getThirdFirstName(), returnedRecord
-                    .getThirdFirstName());
+            assertEquals(record.getSecondFirstName(), returnedRecord.getSecondFirstName());
+            assertEquals(record.getThirdFirstName(), returnedRecord.getThirdFirstName());
         } finally {
             sqlSession.close();
         }
     }
-    
+
     @Test
     public void testAwfulTableUpdateByPrimaryKey() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -2293,20 +2225,16 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
-            assertEquals(record.getEmailaddress(), returnedRecord
-                    .getEmailaddress());
-            assertEquals(record.getFirstFirstName(), returnedRecord
-                    .getFirstFirstName());
+            assertEquals(record.getEmailaddress(), returnedRecord.getEmailaddress());
+            assertEquals(record.getFirstFirstName(), returnedRecord.getFirstFirstName());
             assertEquals(record.getFrom(), returnedRecord.getFrom());
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(record.getId5(), returnedRecord.getId5());
             assertEquals(record.getId6(), returnedRecord.getId6());
             assertEquals(record.getId7(), returnedRecord.getId7());
-            assertEquals(record.getSecondFirstName(), returnedRecord
-                    .getSecondFirstName());
-            assertEquals(record.getThirdFirstName(), returnedRecord
-                    .getThirdFirstName());
+            assertEquals(record.getSecondFirstName(), returnedRecord.getSecondFirstName());
+            assertEquals(record.getThirdFirstName(), returnedRecord.getThirdFirstName());
         } finally {
             sqlSession.close();
         }
@@ -2348,20 +2276,16 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
-            assertEquals(record.getEmailaddress(), returnedRecord
-                    .getEmailaddress());
-            assertEquals(record.getFirstFirstName(), returnedRecord
-                    .getFirstFirstName());
+            assertEquals(record.getEmailaddress(), returnedRecord.getEmailaddress());
+            assertEquals(record.getFirstFirstName(), returnedRecord.getFirstFirstName());
             assertEquals(record.getFrom(), returnedRecord.getFrom());
             assertEquals(newRecord.getId1(), returnedRecord.getId1());
             assertEquals(newRecord.getId2(), returnedRecord.getId2());
             assertEquals(record.getId5(), returnedRecord.getId5());
             assertEquals(record.getId6(), returnedRecord.getId6());
             assertEquals(record.getId7(), returnedRecord.getId7());
-            assertEquals(record.getSecondFirstName(), returnedRecord
-                    .getSecondFirstName());
-            assertEquals(record.getThirdFirstName(), returnedRecord
-                    .getThirdFirstName());
+            assertEquals(record.getSecondFirstName(), returnedRecord.getSecondFirstName());
+            assertEquals(record.getThirdFirstName(), returnedRecord.getThirdFirstName());
         } finally {
             sqlSession.close();
         }
@@ -2499,20 +2423,16 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             assertNotNull(returnedRecord);
             assertEquals(record.getCustomerId(), returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
-            assertEquals(record.getEmailaddress(), returnedRecord
-                    .getEmailaddress());
-            assertEquals(record.getFirstFirstName(), returnedRecord
-                    .getFirstFirstName());
+            assertEquals(record.getEmailaddress(), returnedRecord.getEmailaddress());
+            assertEquals(record.getFirstFirstName(), returnedRecord.getFirstFirstName());
             assertEquals(record.getFrom(), returnedRecord.getFrom());
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(record.getId5(), returnedRecord.getId5());
             assertEquals(record.getId6(), returnedRecord.getId6());
             assertEquals(record.getId7(), returnedRecord.getId7());
-            assertEquals(record.getSecondFirstName(), returnedRecord
-                    .getSecondFirstName());
-            assertEquals(record.getThirdFirstName(), returnedRecord
-                    .getThirdFirstName());
+            assertEquals(record.getSecondFirstName(), returnedRecord.getSecondFirstName());
+            assertEquals(record.getThirdFirstName(), returnedRecord.getThirdFirstName());
         } finally {
             sqlSession.close();
         }
@@ -2735,7 +2655,7 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             sqlSession.close();
         }
     }
-    
+
     @Test
     public void testAwfulTableSelectByExampleComplexLike() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -2941,7 +2861,7 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             example.createCriteria().andId1In(ids);
             example.setOrderByClause("\"A_CuStOmEr iD\"");
             List<AwfulTable> answer = mapper.selectByExample(example);
-            
+
             assertEquals(2, answer.size());
             AwfulTable returnedRecord = answer.get(0);
             assertEquals(1, returnedRecord.getId1().intValue());
@@ -3146,7 +3066,7 @@ public class ConditionalJava5Test extends AbstractAnnotatedConditionalTest {
             AwfulTableExample example = new AwfulTableExample();
             example.createCriteria();
             example.setOrderByClause("\"A_CuStOmEr iD\" desc");
-            
+
             List<AwfulTable> answer = mapper.selectByExample(example);
             assertEquals(6, answer.size());
             AwfulTable returnedRecord = answer.get(0);

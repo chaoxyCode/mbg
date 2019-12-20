@@ -279,9 +279,9 @@ class MethodRendererTest {
         method.addBodyLine("super(name);")
 
         method.addAnnotation("@Generated")
-	method.addJavaDocLine("/**")
-	method.addJavaDocLine(" * Some Javadoc")
-	method.addJavaDocLine(" */")
+        method.addJavaDocLine("/**")
+        method.addJavaDocLine(" * Some Javadoc")
+        method.addJavaDocLine(" */")
 
 
         assertThat(toString(method)).isEqualToNormalizingNewlines("""
@@ -296,5 +296,5 @@ class MethodRendererTest {
     }
 
     private fun toString(m: Method, inInterface: Boolean = false) = MethodRenderer().render(m, inInterface, null)
-                .joinToString(System.getProperty("line.separator"))
+            .joinToString(System.getProperty("line.separator"))
 }

@@ -1,17 +1,15 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
+ * Copyright 2006-2016 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.eclipse.ui;
 
@@ -43,7 +41,7 @@ public class Messages extends NLS {
     public static String SQL_SCRIPT_TAB_JDBC_DRIVER_REQUIRED;
     public static String SQL_SCRIPT_TAB_JDBC_URL_REQUIRED;
     public static String SQL_SCRIPT_TAB_SECURE_STORAGE;
-    
+
     public static String LAUNCH_CONFIGURATION_SELECTOR_TITLE;
     public static String LAUNCH_CONFIGURATION_SELECTOR_MESSAGE;
     public static String LAUNCH_ERROR_ERROR_GENERATING_ANT_FILE;
@@ -51,8 +49,9 @@ public class Messages extends NLS {
     public static String SECURE_STORAGE_ERROR_DIALOG_TITLE;
     public static String SECURE_STORAGE_ERROR_DIALOG_MESSAGE;
     public static String SECURE_STORAGE_ERROR_LOG_MESSAGE;
-    
+
     static {
-        NLS.initializeMessages("org.mybatis.generator.eclipse.ui.messages", Messages.class); //$NON-NLS-1$
+        NLS.initializeMessages(
+                "org.mybatis.generator.eclipse.ui.messages", Messages.class); // $NON-NLS-1$
     }
 }

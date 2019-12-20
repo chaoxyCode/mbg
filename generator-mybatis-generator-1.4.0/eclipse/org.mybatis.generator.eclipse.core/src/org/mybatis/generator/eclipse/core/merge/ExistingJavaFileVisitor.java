@@ -16,35 +16,16 @@
 
 package org.mybatis.generator.eclipse.core.merge;
 
+import org.eclipse.jdt.core.dom.*;
+import org.mybatis.generator.api.MyBatisGenerator;
+import org.mybatis.generator.eclipse.core.merge.visitors.MethodSignatureStringifier;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.ASTVisitor;
-import org.eclipse.jdt.core.dom.Annotation;
-import org.eclipse.jdt.core.dom.BodyDeclaration;
-import org.eclipse.jdt.core.dom.EnumDeclaration;
-import org.eclipse.jdt.core.dom.Expression;
-import org.eclipse.jdt.core.dom.FieldDeclaration;
-import org.eclipse.jdt.core.dom.IExtendedModifier;
-import org.eclipse.jdt.core.dom.Javadoc;
-import org.eclipse.jdt.core.dom.MemberValuePair;
-import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.eclipse.jdt.core.dom.NormalAnnotation;
-import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
-import org.eclipse.jdt.core.dom.StringLiteral;
-import org.eclipse.jdt.core.dom.TagElement;
-import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
-import org.mybatis.generator.api.MyBatisGenerator;
-import org.mybatis.generator.eclipse.core.merge.visitors.MethodSignatureStringifier;
-
-/**
- * @author Jeff Butler
- * 
- */
+/** @author Jeff Butler */
 public class ExistingJavaFileVisitor extends ASTVisitor {
     private TypeDeclaration typeDeclaration;
     private String[] javadocTags;
@@ -52,9 +33,7 @@ public class ExistingJavaFileVisitor extends ASTVisitor {
     private Map<String, List<Annotation>> fieldAnnotations;
     private Map<String, List<Annotation>> methodAnnotations;
 
-    /**
-     * 
-     */
+    /** */
     public ExistingJavaFileVisitor(String[] javadocTags) {
         super();
         this.javadocTags = javadocTags;
@@ -63,18 +42,15 @@ public class ExistingJavaFileVisitor extends ASTVisitor {
         methodAnnotations = new HashMap<>();
     }
 
-    /**
-     * Find the generated fields and delete them
-     */
+    /** Find the generated fields and delete them */
     @Override
     public boolean visit(FieldDeclaration node) {
         if (isGenerated(node)) {
             List<Annotation> annotations = retrieveAnnotations(node);
             if (!annotations.isEmpty()) {
-                VariableDeclarationFragment variable = (VariableDeclarationFragment) node
-                        .fragments().get(0);
-                fieldAnnotations.put(variable.getName().getIdentifier(),
-                        annotations);
+                VariableDeclarationFragment variable =
+                        (VariableDeclarationFragment) node.fragments().get(0);
+                fieldAnnotations.put(variable.getName().getIdentifier(), annotations);
             }
             node.delete();
         }
@@ -82,9 +58,7 @@ public class ExistingJavaFileVisitor extends ASTVisitor {
         return false;
     }
 
-    /**
-     * Find the generated methods and delete them
-     */
+    /** Find the generated methods and delete them */
     @Override
     public boolean visit(MethodDeclaration node) {
         if (isGenerated(node)) {
@@ -101,9 +75,7 @@ public class ExistingJavaFileVisitor extends ASTVisitor {
         return false;
     }
 
-    /**
-     * Find any generated inner types and delete them
-     */
+    /** Find any generated inner types and delete them */
     @Override
     public boolean visit(TypeDeclaration node) {
         // make sure we only pick up the top level type
@@ -136,7 +108,7 @@ public class ExistingJavaFileVisitor extends ASTVisitor {
     private boolean isGenerated(BodyDeclaration node) {
         return hasGeneratedJavadoc(node) || hasGeneratedAnnotation(node);
     }
-    
+
     @SuppressWarnings("unchecked")
     private boolean hasGeneratedJavadoc(BodyDeclaration node) {
         boolean rc = false;
@@ -153,8 +125,8 @@ public class ExistingJavaFileVisitor extends ASTVisitor {
                         String string = tag.toString();
                         if (string.contains("do_not_delete_during_merge")) {
                             if (node.getNodeType() == ASTNode.TYPE_DECLARATION) {
-                                String name = ((TypeDeclaration) node)
-                                        .getName().getFullyQualifiedName();
+                                String name =
+                                        ((TypeDeclaration) node).getName().getFullyQualifiedName();
                                 generatedInnerClassesToKeep.add(name);
                             }
                         } else {
@@ -168,7 +140,7 @@ public class ExistingJavaFileVisitor extends ASTVisitor {
 
         return rc;
     }
-    
+
     @SuppressWarnings("unchecked")
     private boolean hasGeneratedAnnotation(BodyDeclaration node) {
         List<IExtendedModifier> modifiers = node.modifiers();
@@ -179,10 +151,10 @@ public class ExistingJavaFileVisitor extends ASTVisitor {
                 }
             }
         }
-        
+
         return false;
     }
-    
+
     @SuppressWarnings("unchecked")
     private boolean isGeneratedAnnotation(Annotation annotation) {
         String typeName = annotation.getTypeName().getFullyQualifiedName();
@@ -197,9 +169,8 @@ public class ExistingJavaFileVisitor extends ASTVisitor {
                     if (exp instanceof StringLiteral) {
                         value = ((StringLiteral) exp).getLiteralValue();
                     }
-                    
-                    if (MyBatisGenerator.class.getName().equals(value)
-                            && "value".equals(name)) {
+
+                    if (MyBatisGenerator.class.getName().equals(value) && "value".equals(name)) {
                         return true;
                     }
                 }
@@ -217,10 +188,9 @@ public class ExistingJavaFileVisitor extends ASTVisitor {
         }
         return false;
     }
-    
+
     boolean isGeneratedType(String typeName) {
-        return "Generated".equals(typeName)
-                || "javax.annotation.Generated".equals(typeName);
+        return "Generated".equals(typeName) || "javax.annotation.Generated".equals(typeName);
     }
 
     public boolean containsInnerClass(String name) {
@@ -238,15 +208,13 @@ public class ExistingJavaFileVisitor extends ASTVisitor {
         return annotations;
     }
 
-    public List<Annotation> getFieldAnnotations(
-            FieldDeclaration fieldDeclaration) {
-        VariableDeclarationFragment variable = (VariableDeclarationFragment) fieldDeclaration
-                .fragments().get(0);
+    public List<Annotation> getFieldAnnotations(FieldDeclaration fieldDeclaration) {
+        VariableDeclarationFragment variable =
+                (VariableDeclarationFragment) fieldDeclaration.fragments().get(0);
         return fieldAnnotations.get(variable.getName().getIdentifier());
     }
 
-    public List<Annotation> getMethodAnnotations(
-            MethodDeclaration methodDeclaration) {
+    public List<Annotation> getMethodAnnotations(MethodDeclaration methodDeclaration) {
         MethodSignatureStringifier mss = new MethodSignatureStringifier();
         methodDeclaration.accept(mss);
         return methodAnnotations.get(mss.toString());

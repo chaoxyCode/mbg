@@ -1,26 +1,24 @@
 /**
- *    Copyright 2006-2018 the original author or authors.
+ * Copyright 2006-2018 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.api.dom.java;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.mybatis.generator.api.dom.java.render.InnerClassRenderer;
 
 import java.util.stream.Collectors;
 
-import org.junit.jupiter.api.Test;
-import org.mybatis.generator.api.dom.java.render.InnerClassRenderer;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class InnerClassTest {
 
@@ -168,29 +166,44 @@ public class InnerClassTest {
         innerClass.addTypeParameter(new TypeParameter("U"));
         innerClass.addInitializationBlock(new InitializationBlock(false));
         innerClass.addSuperInterface(new FullyQualifiedJavaType("com.hoge.UserInterface"));
-        
+
         Method method = new Method("method1");
         method.setAbstract(true);
         innerClass.addMethod(method);
         innerClass.setAbstract(true);
 
-        String excepted = "abstract class UserClass<T, U>  extends SuperClass implements UserInterface {" + LF
-                + "    String test;" + LF
-                + "" + LF
-                + "    {" + LF
-                + "    }" + LF
-                + "" + LF
-                + "    abstract void method1();" + LF
-                + "" + LF
-                + "    class InnerUserClass {" + LF
-                + "    }" + LF
-                + "" + LF
-                + "    enum TestEnum {" + LF
-                + "    }" + LF
-                + "}";
+        String excepted =
+                "abstract class UserClass<T, U>  extends SuperClass implements UserInterface {"
+                        + LF
+                        + "    String test;"
+                        + LF
+                        + ""
+                        + LF
+                        + "    {"
+                        + LF
+                        + "    }"
+                        + LF
+                        + ""
+                        + LF
+                        + "    abstract void method1();"
+                        + LF
+                        + ""
+                        + LF
+                        + "    class InnerUserClass {"
+                        + LF
+                        + "    }"
+                        + LF
+                        + ""
+                        + LF
+                        + "    enum TestEnum {"
+                        + LF
+                        + "    }"
+                        + LF
+                        + "}";
 
         InnerClassRenderer renderer = new InnerClassRenderer();
-        String rendered = renderer.render(innerClass, null).stream().collect(Collectors.joining(LF));
+        String rendered =
+                renderer.render(innerClass, null).stream().collect(Collectors.joining(LF));
         assertEquals(excepted, rendered);
     }
 }

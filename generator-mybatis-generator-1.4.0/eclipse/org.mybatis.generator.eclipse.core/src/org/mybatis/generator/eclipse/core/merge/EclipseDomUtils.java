@@ -15,37 +15,32 @@
  */
 package org.mybatis.generator.eclipse.core.merge;
 
-import java.util.Map;
-
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.dom.AST;
-import org.eclipse.jdt.core.dom.ASTParser;
-import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.ImportDeclaration;
-import org.eclipse.jdt.core.dom.Type;
+import org.eclipse.jdt.core.dom.*;
 import org.mybatis.generator.eclipse.core.merge.visitors.ImportDeclarationStringifier;
 import org.mybatis.generator.eclipse.core.merge.visitors.TypeStringifier;
 
+import java.util.Map;
+
 /**
  * Convenience methods for working with Eclipse DOM
- * 
+ *
  * @author Jeff Butler
- * 
  */
 public class EclipseDomUtils {
 
-    public static boolean importDeclarationsMatch(ImportDeclaration import1,
-            ImportDeclaration import2) {
+    public static boolean importDeclarationsMatch(
+            ImportDeclaration import1, ImportDeclaration import2) {
         if (import1 == null || import2 == null) {
             return import1 == null && import2 == null;
         }
-        
+
         ImportDeclarationStringifier ids1 = new ImportDeclarationStringifier();
         import1.accept(ids1);
 
         ImportDeclarationStringifier ids2 = new ImportDeclarationStringifier();
         import2.accept(ids2);
-        
+
         return ids1.toString().equals(ids2.toString());
     }
 
@@ -54,7 +49,7 @@ public class EclipseDomUtils {
         if (type1 == null || type2 == null) {
             return type1 == null && type2 == null;
         }
-        
+
         TypeStringifier ts1 = new TypeStringifier();
         type1.accept(ts1);
 
@@ -63,7 +58,7 @@ public class EclipseDomUtils {
 
         return ts1.toString().equals(ts2.toString());
     }
-    
+
     public static CompilationUnit getCompilationUnitFromSource(String javaSource) {
         ASTParser astParser = ASTParser.newParser(AST.JLS10);
         Map<String, String> options = JavaCore.getDefaultOptions();

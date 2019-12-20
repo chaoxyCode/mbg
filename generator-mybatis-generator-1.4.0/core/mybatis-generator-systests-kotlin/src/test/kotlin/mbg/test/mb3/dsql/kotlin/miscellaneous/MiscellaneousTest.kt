@@ -816,7 +816,7 @@ class MiscellaneousTest : AbstractAnnotatedMiscellaneousTest() {
             val returnedRecord = mapper.selectByPrimaryKey(1)
 
             assertThat(returnedRecord).isNotNull()
-            if(returnedRecord != null) {
+            if (returnedRecord != null) {
                 assertEquals(record.address, returnedRecord.address)
                 assertEquals(1, returnedRecord.id)
                 assertEquals(record.name, returnedRecord.name)
@@ -838,7 +838,7 @@ class MiscellaneousTest : AbstractAnnotatedMiscellaneousTest() {
             val returnedRecord = mapper.selectByPrimaryKey(1)
 
             assertThat(returnedRecord).isNotNull()
-            if(returnedRecord != null) {
+            if (returnedRecord != null) {
                 assertNull(returnedRecord.address)
                 assertEquals(record.id, returnedRecord.id)
                 assertNull(returnedRecord.name)

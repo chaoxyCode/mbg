@@ -33,9 +33,9 @@ class TypeParameterRendererTest {
     @Test
     fun testComplexTypeParameterRenderNoCU() {
         val renderer = TypeParameterRenderer()
-	val extendsTypes =listOf(FullyQualifiedJavaType("com.foo.Bar"))
+        val extendsTypes = listOf(FullyQualifiedJavaType("com.foo.Bar"))
         val tp = TypeParameter("someName", extendsTypes)
-	
+
         assertThat(renderer.render(tp, null)).isEqualTo("someName extends Bar")
     }
 
@@ -43,13 +43,13 @@ class TypeParameterRendererTest {
     @Test
     fun testComplexTypeParameterRenderWithCU() {
         val renderer = TypeParameterRenderer()
-	val tlc = TopLevelClass(FullyQualifiedJavaType("com.foo.Baz"))
-	tlc.addImportedType("com.bar.Foo2")
-	val extendsTypes =listOf(FullyQualifiedJavaType("java.lang.String"),
-	        FullyQualifiedJavaType("com.foo.Bar"), FullyQualifiedJavaType("com.bar.Foo"),
-	        FullyQualifiedJavaType("com.bar.Foo2"))
+        val tlc = TopLevelClass(FullyQualifiedJavaType("com.foo.Baz"))
+        tlc.addImportedType("com.bar.Foo2")
+        val extendsTypes = listOf(FullyQualifiedJavaType("java.lang.String"),
+                FullyQualifiedJavaType("com.foo.Bar"), FullyQualifiedJavaType("com.bar.Foo"),
+                FullyQualifiedJavaType("com.bar.Foo2"))
         val tp = TypeParameter("someName", extendsTypes)
-	
+
         assertThat(renderer.render(tp, tlc)).isEqualTo("someName extends String & Bar & com.bar.Foo & Foo2")
     }
 }

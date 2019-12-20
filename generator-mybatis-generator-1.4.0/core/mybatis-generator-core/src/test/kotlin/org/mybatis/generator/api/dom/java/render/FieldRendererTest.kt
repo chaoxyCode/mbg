@@ -47,8 +47,8 @@ class FieldRendererTest {
     fun testPrivateStaticFieldWithInitializationString() {
         val f = Field("name", FullyQualifiedJavaType.getStringInstance())
         f.setVisibility(JavaVisibility.PRIVATE)
-	f.setStatic(true)
-	f.setFinal(true)
+        f.setStatic(true)
+        f.setFinal(true)
         f.setInitializationString(""""Fred"""")
         assertThat(toString(f)).isEqualTo("""private static final String name = "Fred";""")
     }
@@ -57,8 +57,8 @@ class FieldRendererTest {
     fun testPrivateTransientFieldWithInitializationString() {
         val f = Field("name", FullyQualifiedJavaType.getStringInstance())
         f.setVisibility(JavaVisibility.PRIVATE)
-	f.setTransient(true)
-	f.setVolatile(true)
+        f.setTransient(true)
+        f.setVolatile(true)
         f.setInitializationString(""""Fred"""")
         assertThat(toString(f)).isEqualTo("""private transient volatile String name = "Fred";""")
     }
@@ -68,12 +68,12 @@ class FieldRendererTest {
         val f = Field("name", FullyQualifiedJavaType.getStringInstance())
         f.setVisibility(JavaVisibility.PRIVATE)
         f.setInitializationString(""""Fred"""")
-	
-	f.addAnnotation("@Generated")
-	f.addJavaDocLine("/**")
-	f.addJavaDocLine(" * Some Javadoc")
-	f.addJavaDocLine(" */")
-		
+
+        f.addAnnotation("@Generated")
+        f.addJavaDocLine("/**")
+        f.addJavaDocLine(" * Some Javadoc")
+        f.addJavaDocLine(" */")
+
         assertThat(toString(f)).isEqualToNormalizingNewlines("""
                 |/**
                 | * Some Javadoc
@@ -84,5 +84,5 @@ class FieldRendererTest {
     }
 
     private fun toString(f: Field) = FieldRenderer().render(f, null)
-                .joinToString(System.getProperty("line.separator"))
+            .joinToString(System.getProperty("line.separator"))
 }

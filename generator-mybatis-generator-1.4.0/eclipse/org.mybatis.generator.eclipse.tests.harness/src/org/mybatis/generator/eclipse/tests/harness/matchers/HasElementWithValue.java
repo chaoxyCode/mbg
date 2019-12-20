@@ -1,17 +1,15 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
+ * Copyright 2006-2016 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.eclipse.tests.harness.matchers;
 
@@ -20,29 +18,25 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 import org.mybatis.generator.eclipse.tests.harness.Utilities;
-import org.mybatis.generator.eclipse.tests.harness.matchers.support.InnerAnnotationGetter;
-import org.mybatis.generator.eclipse.tests.harness.matchers.support.InnerClassGetter;
-import org.mybatis.generator.eclipse.tests.harness.matchers.support.InnerElementGetter;
-import org.mybatis.generator.eclipse.tests.harness.matchers.support.InnerEnumGetter;
-import org.mybatis.generator.eclipse.tests.harness.matchers.support.InnerInterfaceGetter;
+import org.mybatis.generator.eclipse.tests.harness.matchers.support.*;
 import org.mybatis.generator.eclipse.tests.harness.summary.AbstractSummary;
 
-public class HasElementWithValue extends TypeSafeDiagnosingMatcher<AbstractSummary>{
+public class HasElementWithValue extends TypeSafeDiagnosingMatcher<AbstractSummary> {
 
     public enum Type {
         ANNOTATION("annotation", InnerAnnotationGetter.class),
         CLASS("class", InnerClassGetter.class),
         ENUM("enum", InnerEnumGetter.class),
         INTERFACE("interface", InnerInterfaceGetter.class);
-        
+
         private String name;
         private Class<? extends InnerElementGetter> elementGetterClass;
-        
+
         private Type(String name, Class<? extends InnerElementGetter> elementGetterClass) {
-            this.name= name;
+            this.name = name;
             this.elementGetterClass = elementGetterClass;
         }
-        
+
         public String getName() {
             return name;
         }
@@ -51,28 +45,28 @@ public class HasElementWithValue extends TypeSafeDiagnosingMatcher<AbstractSumma
             return Utilities.newInstance(elementGetterClass);
         }
     }
-    
+
     private String matchString;
     private Type type;
     private Matcher<Object> matcher;
-    
+
     @SuppressWarnings("unchecked")
     public HasElementWithValue(String matchString, Type type, Matcher<?> matcher) {
         this.matchString = matchString;
         this.type = type;
         this.matcher = (Matcher<Object>) matcher;
     }
-    
+
     @Override
     public void describeTo(Description description) {
-        description.appendText(type.getName() + " named " + matchString + ", and ")
-            .appendDescriptionOf(matcher);
+        description
+                .appendText(type.getName() + " named " + matchString + ", and ")
+                .appendDescriptionOf(matcher);
     }
 
     @Override
     protected boolean matchesSafely(AbstractSummary item, Description mismatch) {
-        return containsElement(item, mismatch)
-                .matching(matcher);
+        return containsElement(item, mismatch).matching(matcher);
     }
 
     private Condition<Object> containsElement(AbstractSummary item, Description mismatch) {

@@ -15,19 +15,7 @@
  */
 package org.mybatis.generator.eclipse.core.callback;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
@@ -39,9 +27,11 @@ import org.mybatis.generator.eclipse.core.merge.InvalidExistingFileException;
 import org.mybatis.generator.eclipse.core.merge.JavaFileMerger;
 import org.mybatis.generator.exception.ShellException;
 
-/**
- * @author Jeff Butler
- */
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+
+/** @author Jeff Butler */
 public class EclipseShellCallback implements ShellCallback {
     private Map<String, IJavaProject> projects;
 
@@ -49,9 +39,7 @@ public class EclipseShellCallback implements ShellCallback {
 
     private Map<String, IPackageFragmentRoot> sourceFolders;
 
-    /**
-     * 
-     */
+    /** */
     public EclipseShellCallback() {
         super();
         projects = new HashMap<>();
@@ -73,7 +61,7 @@ public class EclipseShellCallback implements ShellCallback {
 
             throw new ShellException(sb.toString());
         }
-        
+
         IFolder folder = getFolder(targetProject, targetPackage);
 
         return folder.getRawLocation().toFile();
@@ -87,16 +75,14 @@ public class EclipseShellCallback implements ShellCallback {
     public void refreshProject(String project) {
         try {
             IPackageFragmentRoot root = getSourceFolder(project);
-            root.getCorrespondingResource().refreshLocal(
-                    IResource.DEPTH_INFINITE, null);
+            root.getCorrespondingResource().refreshLocal(IResource.DEPTH_INFINITE, null);
         } catch (Exception e) {
             // ignore
             ;
         }
     }
 
-    private IJavaProject getJavaProject(String javaProjectName)
-            throws ShellException {
+    private IJavaProject getJavaProject(String javaProjectName) throws ShellException {
         IJavaProject javaProject = projects.get(javaProjectName);
         if (javaProject == null) {
             IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
@@ -134,8 +120,7 @@ public class EclipseShellCallback implements ShellCallback {
         return javaProject;
     }
 
-    private IFolder getFolder(String targetProject, String targetPackage)
-            throws ShellException {
+    private IFolder getFolder(String targetProject, String targetPackage) throws ShellException {
         String key = targetProject + targetPackage;
         IFolder folder = folders.get(key);
         if (folder == null) {
@@ -155,9 +140,8 @@ public class EclipseShellCallback implements ShellCallback {
     }
 
     /**
-     * This method returns the first modifiable package fragment root in the
-     * java project
-     * 
+     * This method returns the first modifiable package fragment root in the java project
+     *
      * @param javaProject
      * @return
      */
@@ -174,8 +158,7 @@ public class EclipseShellCallback implements ShellCallback {
 
         IPackageFragmentRoot srcFolder = null;
         for (int i = 0; i < roots.length; i++) {
-            if (roots[i].isArchive() || roots[i].isReadOnly()
-                    || roots[i].isExternal()) {
+            if (roots[i].isArchive() || roots[i].isReadOnly() || roots[i].isExternal()) {
                 continue;
             } else {
                 srcFolder = roots[i];
@@ -195,13 +178,11 @@ public class EclipseShellCallback implements ShellCallback {
     }
 
     private IPackageFragmentRoot getSpecificSourceFolder(
-            IJavaProject javaProject, String targetProject)
-            throws ShellException {
+            IJavaProject javaProject, String targetProject) throws ShellException {
 
         try {
             Path path = new Path("/" + targetProject);
-            IPackageFragmentRoot pfr = javaProject
-                    .findPackageFragmentRoot(path);
+            IPackageFragmentRoot pfr = javaProject.findPackageFragmentRoot(path);
             if (pfr == null) {
                 StringBuffer sb = new StringBuffer();
                 sb.append("Cannot find source folder ");
@@ -216,19 +197,17 @@ public class EclipseShellCallback implements ShellCallback {
         }
     }
 
-    private IPackageFragment getPackage(IPackageFragmentRoot srcFolder,
-            String packageName) throws ShellException {
+    private IPackageFragment getPackage(IPackageFragmentRoot srcFolder, String packageName)
+            throws ShellException {
 
         IPackageFragment fragment = srcFolder.getPackageFragment(packageName);
 
         try {
             if (!fragment.exists()) {
-                fragment = srcFolder.createPackageFragment(packageName, true,
-                        null);
+                fragment = srcFolder.createPackageFragment(packageName, true, null);
             }
 
-            fragment.getCorrespondingResource().refreshLocal(
-                    IResource.DEPTH_ONE, null);
+            fragment.getCorrespondingResource().refreshLocal(IResource.DEPTH_ONE, null);
         } catch (CoreException e) {
             throw new ShellException(e.getStatus().getMessage(), e);
         }
@@ -245,8 +224,7 @@ public class EclipseShellCallback implements ShellCallback {
         return true;
     }
 
-    private IPackageFragmentRoot getSourceFolder(String targetProject)
-            throws ShellException {
+    private IPackageFragmentRoot getSourceFolder(String targetProject) throws ShellException {
         IPackageFragmentRoot answer = sourceFolders.get(targetProject);
         if (answer == null) {
             // first parse the targetProject into project and source folder
@@ -261,8 +239,7 @@ public class EclipseShellCallback implements ShellCallback {
                 IJavaProject javaProject = getJavaProject(targetProject);
                 answer = getFirstSourceFolder(javaProject);
             } else {
-                IJavaProject javaProject = getJavaProject(targetProject
-                        .substring(0, index));
+                IJavaProject javaProject = getJavaProject(targetProject.substring(0, index));
                 answer = getSpecificSourceFolder(javaProject, targetProject);
             }
 
@@ -278,8 +255,8 @@ public class EclipseShellCallback implements ShellCallback {
     }
 
     @Override
-    public String mergeJavaFile(String newFileSource,
-            File existingFile, String[] javadocTags, String fileEncoding)
+    public String mergeJavaFile(
+            String newFileSource, File existingFile, String[] javadocTags, String fileEncoding)
             throws ShellException {
         String existingFileContent = getExistingFileContents(existingFile, fileEncoding);
         JavaFileMerger merger = new JavaFileMerger(newFileSource, existingFileContent, javadocTags);
@@ -289,20 +266,22 @@ public class EclipseShellCallback implements ShellCallback {
             throw translateInvalidExistingFileException(e, existingFile);
         }
     }
-    
-    private ShellException translateInvalidExistingFileException (InvalidExistingFileException e, File existingFile) {
+
+    private ShellException translateInvalidExistingFileException(
+            InvalidExistingFileException e, File existingFile) {
         String message = null;
-        
-        switch(e.getErrorCode()) {
-        case NO_TYPES_DEFINED_IN_FILE:
-            message = "No types defined in file " + existingFile.getAbsolutePath();
-            break;
+
+        switch (e.getErrorCode()) {
+            case NO_TYPES_DEFINED_IN_FILE:
+                message = "No types defined in file " + existingFile.getAbsolutePath();
+                break;
         }
-        
+
         return new ShellException(message);
     }
 
-    private String getExistingFileContents(File existingFile, String fileEncoding) throws ShellException {
+    private String getExistingFileContents(File existingFile, String fileEncoding)
+            throws ShellException {
         if (!existingFile.exists()) {
             // this should not happen because MyBatis Generator only returns the
             // file

@@ -1,27 +1,25 @@
 /**
- *    Copyright 2006-2018 the original author or authors.
+ * Copyright 2006-2018 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.internal;
 
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
+import org.mybatis.generator.api.ShellCallback;
+import org.mybatis.generator.exception.ShellException;
 
 import java.io.File;
 import java.util.StringTokenizer;
 
-import org.mybatis.generator.api.ShellCallback;
-import org.mybatis.generator.exception.ShellException;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 public class DefaultShellCallback implements ShellCallback {
 
@@ -33,8 +31,7 @@ public class DefaultShellCallback implements ShellCallback {
     }
 
     @Override
-    public File getDirectory(String targetProject, String targetPackage)
-            throws ShellException {
+    public File getDirectory(String targetProject, String targetPackage) throws ShellException {
         // targetProject is interpreted as a directory that must exist
         //
         // targetPackage is interpreted as a sub directory, but in package
@@ -44,12 +41,14 @@ public class DefaultShellCallback implements ShellCallback {
 
         File project = new File(targetProject);
         if (!project.isDirectory()) {
-            throw new ShellException(getString("Warning.9", //$NON-NLS-1$
-                    targetProject));
+            throw new ShellException(
+                    getString(
+                            "Warning.9", //$NON-NLS-1$
+                            targetProject));
         }
 
         StringBuilder sb = new StringBuilder();
-        StringTokenizer st = new StringTokenizer(targetPackage, "."); //$NON-NLS-1$
+        StringTokenizer st = new StringTokenizer(targetPackage, "."); // $NON-NLS-1$
         while (st.hasMoreTokens()) {
             sb.append(st.nextToken());
             sb.append(File.separatorChar);
@@ -59,8 +58,10 @@ public class DefaultShellCallback implements ShellCallback {
         if (!directory.isDirectory()) {
             boolean rc = directory.mkdirs();
             if (!rc) {
-                throw new ShellException(getString("Warning.10", //$NON-NLS-1$
-                        directory.getAbsolutePath()));
+                throw new ShellException(
+                        getString(
+                                "Warning.10", //$NON-NLS-1$
+                                directory.getAbsolutePath()));
             }
         }
 
@@ -83,8 +84,8 @@ public class DefaultShellCallback implements ShellCallback {
     }
 
     @Override
-    public String mergeJavaFile(String newFileSource,
-            File existingFile, String[] javadocTags, String fileEncoding)
+    public String mergeJavaFile(
+            String newFileSource, File existingFile, String[] javadocTags, String fileEncoding)
             throws ShellException {
         throw new UnsupportedOperationException();
     }

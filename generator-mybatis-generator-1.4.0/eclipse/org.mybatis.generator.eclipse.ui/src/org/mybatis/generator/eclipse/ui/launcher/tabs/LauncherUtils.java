@@ -1,17 +1,15 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
+ * Copyright 2006-2016 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.eclipse.ui.launcher.tabs;
 
@@ -32,46 +30,49 @@ public class LauncherUtils {
 
     public static String getTextOrBlank(ILaunchConfiguration configuration, String attribute) {
         String text;
-        
+
         try {
-            text = configuration.getAttribute(attribute, ""); //$NON-NLS-1$
+            text = configuration.getAttribute(attribute, ""); // $NON-NLS-1$
         } catch (CoreException e) {
-            text = ""; //$NON-NLS-1$
+            text = ""; // $NON-NLS-1$
         }
-        
+
         return text;
     }
-    
+
     public static String getTextOrBlank(ISecurePreferences node, String attribute) {
         String text;
-        
+
         try {
-            text = node.get(attribute, ""); //$NON-NLS-1$
+            text = node.get(attribute, ""); // $NON-NLS-1$
         } catch (StorageException e) {
-            text = ""; //$NON-NLS-1$
+            text = ""; // $NON-NLS-1$
         }
-        
+
         return text;
     }
 
     public static boolean getBooleanOrFalse(ILaunchConfiguration configuration, String attribute) {
         boolean answer;
-        
+
         try {
             answer = configuration.getAttribute(attribute, false);
         } catch (CoreException e) {
             answer = false;
         }
-        
+
         return answer;
     }
-    
-    public static void setPassword(ILaunchConfigurationWorkingCopy configuration, String password, Shell shell) {
-        boolean secure = getBooleanOrFalse(configuration, GeneratorLaunchConstants.ATTR_SQL_SCRIPT_SECURE_CREDENTIALS);
+
+    public static void setPassword(
+            ILaunchConfigurationWorkingCopy configuration, String password, Shell shell) {
+        boolean secure =
+                getBooleanOrFalse(
+                        configuration, GeneratorLaunchConstants.ATTR_SQL_SCRIPT_SECURE_CREDENTIALS);
         if (secure) {
             ISecurePreferences node = getSecurePreferencesNode();
             try {
-                node.put("password", password, true); //$NON-NLS-1$
+                node.put("password", password, true); // $NON-NLS-1$
             } catch (StorageException e) {
                 logException(shell, e);
             }
@@ -79,25 +80,32 @@ public class LauncherUtils {
             configuration.setAttribute(GeneratorLaunchConstants.ATTR_SQL_SCRIPT_PASSWORD, password);
         }
     }
-    
+
     public static String getPassword(ILaunchConfiguration configuration) {
-        boolean secure = getBooleanOrFalse(configuration, GeneratorLaunchConstants.ATTR_SQL_SCRIPT_SECURE_CREDENTIALS);
+        boolean secure =
+                getBooleanOrFalse(
+                        configuration, GeneratorLaunchConstants.ATTR_SQL_SCRIPT_SECURE_CREDENTIALS);
         String password;
         if (secure) {
             ISecurePreferences node = getSecurePreferencesNode();
-            password = getTextOrBlank(node, "password"); //$NON-NLS-1$
+            password = getTextOrBlank(node, "password"); // $NON-NLS-1$
         } else {
-            password = getTextOrBlank(configuration, GeneratorLaunchConstants.ATTR_SQL_SCRIPT_PASSWORD);
+            password =
+                    getTextOrBlank(
+                            configuration, GeneratorLaunchConstants.ATTR_SQL_SCRIPT_PASSWORD);
         }
         return password;
     }
 
-    public static void setUserId(ILaunchConfigurationWorkingCopy configuration, String userId, Shell shell) {
-        boolean secure = getBooleanOrFalse(configuration, GeneratorLaunchConstants.ATTR_SQL_SCRIPT_SECURE_CREDENTIALS);
+    public static void setUserId(
+            ILaunchConfigurationWorkingCopy configuration, String userId, Shell shell) {
+        boolean secure =
+                getBooleanOrFalse(
+                        configuration, GeneratorLaunchConstants.ATTR_SQL_SCRIPT_SECURE_CREDENTIALS);
         if (secure) {
             ISecurePreferences node = getSecurePreferencesNode();
             try {
-                node.put("user", userId, false); //$NON-NLS-1$
+                node.put("user", userId, false); // $NON-NLS-1$
             } catch (StorageException e) {
                 logException(shell, e);
             }
@@ -105,13 +113,15 @@ public class LauncherUtils {
             configuration.setAttribute(GeneratorLaunchConstants.ATTR_SQL_SCRIPT_USERID, userId);
         }
     }
-    
+
     public static String getUserId(ILaunchConfiguration configuration) {
-        boolean secure = getBooleanOrFalse(configuration, GeneratorLaunchConstants.ATTR_SQL_SCRIPT_SECURE_CREDENTIALS);
+        boolean secure =
+                getBooleanOrFalse(
+                        configuration, GeneratorLaunchConstants.ATTR_SQL_SCRIPT_SECURE_CREDENTIALS);
         String userId;
         if (secure) {
             ISecurePreferences node = getSecurePreferencesNode();
-            userId = getTextOrBlank(node, "user"); //$NON-NLS-1$
+            userId = getTextOrBlank(node, "user"); // $NON-NLS-1$
         } else {
             userId = getTextOrBlank(configuration, GeneratorLaunchConstants.ATTR_SQL_SCRIPT_USERID);
         }
@@ -119,17 +129,22 @@ public class LauncherUtils {
     }
 
     private static void logException(Shell shell, StorageException e) {
-        MessageDialog.openError(shell,
+        MessageDialog.openError(
+                shell,
                 Messages.SECURE_STORAGE_ERROR_DIALOG_TITLE,
                 Messages.SECURE_STORAGE_ERROR_DIALOG_MESSAGE);
-        Status status = new Status(Status.ERROR, Activator.PLUGIN_ID,
-                Messages.SECURE_STORAGE_ERROR_LOG_MESSAGE, e);
+        Status status =
+                new Status(
+                        Status.ERROR,
+                        Activator.PLUGIN_ID,
+                        Messages.SECURE_STORAGE_ERROR_LOG_MESSAGE,
+                        e);
         Activator.getDefault().getLog().log(status);
     }
-    
+
     private static ISecurePreferences getSecurePreferencesNode() {
         ISecurePreferences root = SecurePreferencesFactory.getDefault();
-        ISecurePreferences node = root.node("/org.mybatis.generator/sqlscript"); //$NON-NLS-1$
+        ISecurePreferences node = root.node("/org.mybatis.generator/sqlscript"); // $NON-NLS-1$
         return node;
     }
 }

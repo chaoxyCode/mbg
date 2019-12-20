@@ -29,17 +29,17 @@ class FirstNameTypeHandler : TypeHandler<FirstName> {
 
     override fun getResult(cs: CallableStatement, columnIndex: Int): FirstName? {
         val value = cs.getString(columnIndex)
-        return value?.let {makeFirstName(it)}
+        return value?.let { makeFirstName(it) }
     }
 
     override fun getResult(rs: ResultSet, columnName: String): FirstName? {
         val value = rs.getString(columnName)
-        return value?.let {makeFirstName(it)}
+        return value?.let { makeFirstName(it) }
     }
 
     override fun getResult(rs: ResultSet, columnIndex: Int): FirstName? {
         val value = rs.getString(columnIndex)
-        return value?.let {makeFirstName(it)}
+        return value?.let { makeFirstName(it) }
     }
 
     private fun makeFirstName(value: String): FirstName {

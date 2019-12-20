@@ -1,29 +1,17 @@
 /**
- *    Copyright 2006-2018 the original author or authors.
+ * Copyright 2006-2018 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mbg.test.mb3.mixed.miscellaneous;
-
-import static mbg.test.common.util.TestUtilities.datesAreEqual;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.ibatis.session.SqlSession;
-import org.junit.jupiter.api.Test;
 
 import mbg.test.common.FirstName;
 import mbg.test.common.MyTime;
@@ -31,16 +19,18 @@ import mbg.test.mb3.common.TestEnum;
 import mbg.test.mb3.generated.mixed.miscellaneous.mapper.EnumtestMapper;
 import mbg.test.mb3.generated.mixed.miscellaneous.mapper.MyObjectMapper;
 import mbg.test.mb3.generated.mixed.miscellaneous.mapper.RegexrenameMapper;
-import mbg.test.mb3.generated.mixed.miscellaneous.model.Enumtest;
-import mbg.test.mb3.generated.mixed.miscellaneous.model.MyObject;
-import mbg.test.mb3.generated.mixed.miscellaneous.model.MyObjectCriteria;
-import mbg.test.mb3.generated.mixed.miscellaneous.model.MyObjectKey;
-import mbg.test.mb3.generated.mixed.miscellaneous.model.Regexrename;
+import mbg.test.mb3.generated.mixed.miscellaneous.model.*;
+import org.apache.ibatis.session.SqlSession;
+import org.junit.jupiter.api.Test;
 
-/**
- * @author Jeff Butler
- * 
- */
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import static mbg.test.common.util.TestUtilities.datesAreEqual;
+import static org.junit.jupiter.api.Assertions.*;
+
+/** @author Jeff Butler */
 public class MiscellaneousTest extends AbstractMixedMiscellaneousTest {
 
     @Test
@@ -77,21 +67,16 @@ public class MiscellaneousTest extends AbstractMixedMiscellaneousTest {
             MyObject returnedRecord = mapper.selectByPrimaryKey(key);
             assertNotNull(returnedRecord);
 
-            assertTrue(datesAreEqual(record.getStartDate(), returnedRecord
-                    .getStartDate()));
-            assertEquals(record.getDecimal100field(), returnedRecord
-                    .getDecimal100field());
-            assertEquals(record.getDecimal155field(), returnedRecord
-                    .getDecimal155field());
-            assertEquals(record.getDecimal60field(), returnedRecord
-                    .getDecimal60field());
+            assertTrue(datesAreEqual(record.getStartDate(), returnedRecord.getStartDate()));
+            assertEquals(record.getDecimal100field(), returnedRecord.getDecimal100field());
+            assertEquals(record.getDecimal155field(), returnedRecord.getDecimal155field());
+            assertEquals(record.getDecimal60field(), returnedRecord.getDecimal60field());
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(record.getLastname(), returnedRecord.getLastname());
             assertEquals(record.getTimefield(), returnedRecord.getTimefield());
-            assertEquals(record.getTimestampfield(), returnedRecord
-                    .getTimestampfield());
+            assertEquals(record.getTimestampfield(), returnedRecord.getTimestampfield());
         } finally {
             sqlSession.close();
         }
@@ -170,26 +155,20 @@ public class MiscellaneousTest extends AbstractMixedMiscellaneousTest {
 
             MyObject returnedRecord = mapper.selectByPrimaryKey(key);
 
-            assertTrue(datesAreEqual(newRecord.getStartDate(), returnedRecord
-                    .getStartDate()));
-            assertEquals(record.getDecimal100field(), returnedRecord
-                    .getDecimal100field());
-            assertEquals(record.getDecimal155field(), returnedRecord
-                    .getDecimal155field());
+            assertTrue(datesAreEqual(newRecord.getStartDate(), returnedRecord.getStartDate()));
+            assertEquals(record.getDecimal100field(), returnedRecord.getDecimal100field());
+            assertEquals(record.getDecimal155field(), returnedRecord.getDecimal155field());
 
             // with columns mapped to primitive types, the column is always
             // updated
-            assertEquals(newRecord.getDecimal60field(), returnedRecord
-                    .getDecimal60field());
+            assertEquals(newRecord.getDecimal60field(), returnedRecord.getDecimal60field());
 
-            assertEquals(newRecord.getFirstname(), returnedRecord
-                    .getFirstname());
+            assertEquals(newRecord.getFirstname(), returnedRecord.getFirstname());
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(record.getLastname(), returnedRecord.getLastname());
             assertEquals(record.getTimefield(), returnedRecord.getTimefield());
-            assertEquals(record.getTimestampfield(), returnedRecord
-                    .getTimestampfield());
+            assertEquals(record.getTimestampfield(), returnedRecord.getTimestampfield());
         } finally {
             sqlSession.close();
         }
@@ -625,17 +604,17 @@ public class MiscellaneousTest extends AbstractMixedMiscellaneousTest {
             assertEquals(1, returnedRecord.getId1().intValue());
             assertEquals(1, returnedRecord.getId2().intValue());
             assertEquals("Flintstone", returnedRecord.getLastname());
-            
+
             returnedRecord = answer.get(1);
             assertEquals(1, returnedRecord.getId1().intValue());
             assertEquals(3, returnedRecord.getId2().intValue());
             assertEquals("Flintstone", returnedRecord.getLastname());
-            
+
             returnedRecord = answer.get(2);
             assertEquals(2, returnedRecord.getId1().intValue());
             assertEquals(1, returnedRecord.getId2().intValue());
             assertEquals("Rubble", returnedRecord.getLastname());
-            
+
             returnedRecord = answer.get(3);
             assertEquals(2, returnedRecord.getId1().intValue());
             assertEquals(3, returnedRecord.getId2().intValue());
@@ -749,21 +728,16 @@ public class MiscellaneousTest extends AbstractMixedMiscellaneousTest {
             assertEquals(1, results.size());
             MyObject returnedRecord = results.get(0);
 
-            assertTrue(datesAreEqual(record.getStartDate(), returnedRecord
-                    .getStartDate()));
-            assertEquals(record.getDecimal100field(), returnedRecord
-                    .getDecimal100field());
-            assertEquals(record.getDecimal155field(), returnedRecord
-                    .getDecimal155field());
-            assertEquals(record.getDecimal60field(), returnedRecord
-                    .getDecimal60field());
+            assertTrue(datesAreEqual(record.getStartDate(), returnedRecord.getStartDate()));
+            assertEquals(record.getDecimal100field(), returnedRecord.getDecimal100field());
+            assertEquals(record.getDecimal155field(), returnedRecord.getDecimal155field());
+            assertEquals(record.getDecimal60field(), returnedRecord.getDecimal60field());
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(record.getLastname(), returnedRecord.getLastname());
             assertEquals(record.getTimefield(), returnedRecord.getTimefield());
-            assertEquals(record.getTimestampfield(), returnedRecord
-                    .getTimestampfield());
+            assertEquals(record.getTimestampfield(), returnedRecord.getTimestampfield());
         } finally {
             sqlSession.close();
         }
@@ -771,9 +745,11 @@ public class MiscellaneousTest extends AbstractMixedMiscellaneousTest {
 
     @Test
     public void testFieldIgnored() {
-        assertThrows(NoSuchFieldException.class, () -> {
-            MyObject.class.getDeclaredField("decimal30field");
-        });
+        assertThrows(
+                NoSuchFieldException.class,
+                () -> {
+                    MyObject.class.getDeclaredField("decimal30field");
+                });
     }
 
     @Test
@@ -803,7 +779,7 @@ public class MiscellaneousTest extends AbstractMixedMiscellaneousTest {
 
             MyObject newRecord = new MyObject();
             newRecord.setLastname("Barker");
-            
+
             MyObjectCriteria example = new MyObjectCriteria();
             fn = new FirstName();
             fn.setValue("B%");
@@ -813,9 +789,9 @@ public class MiscellaneousTest extends AbstractMixedMiscellaneousTest {
 
             List<MyObject> answer = mapper.selectByExample(example);
             assertEquals(1, answer.size());
-            
+
             MyObject returnedRecord = answer.get(0);
-            
+
             assertEquals(newRecord.getLastname(), returnedRecord.getLastname());
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
             assertEquals(record.getId1(), returnedRecord.getId1());
@@ -854,19 +830,17 @@ public class MiscellaneousTest extends AbstractMixedMiscellaneousTest {
             newRecord.setLastname("Barker");
             newRecord.setId1(3);
             newRecord.setId2(4);
-            
+
             MyObjectCriteria example = new MyObjectCriteria();
-            example.createCriteria()
-                .andId1EqualTo(3)
-                .andId2EqualTo(4);
+            example.createCriteria().andId1EqualTo(3).andId2EqualTo(4);
             int rows = mapper.updateByExample(newRecord, example);
             assertEquals(1, rows);
 
             List<MyObject> answer = mapper.selectByExample(example);
             assertEquals(1, answer.size());
-            
+
             MyObject returnedRecord = answer.get(0);
-            
+
             assertEquals(newRecord.getLastname(), returnedRecord.getLastname());
             assertNull(returnedRecord.getFirstname());
             assertEquals(newRecord.getId1(), returnedRecord.getId1());
@@ -875,22 +849,22 @@ public class MiscellaneousTest extends AbstractMixedMiscellaneousTest {
             sqlSession.close();
         }
     }
-    
+
     @Test
     public void testRegexRenameInsert() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        
+
         try {
             RegexrenameMapper mapper = sqlSession.getMapper(RegexrenameMapper.class);
             Regexrename record = new Regexrename();
             record.setAddress("123 Main Street");
             record.setName("Fred");
             record.setZipCode("99999");
-            
+
             mapper.insert(record);
-            
+
             Regexrename returnedRecord = mapper.selectByPrimaryKey(1);
-            
+
             assertEquals(record.getAddress(), returnedRecord.getAddress());
             assertEquals(1, returnedRecord.getId().intValue());
             assertEquals(record.getName(), returnedRecord.getName());
@@ -899,22 +873,22 @@ public class MiscellaneousTest extends AbstractMixedMiscellaneousTest {
             sqlSession.close();
         }
     }
-    
+
     @Test
     public void testRegexRenameInsertSelective() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        
+
         try {
             RegexrenameMapper mapper = sqlSession.getMapper(RegexrenameMapper.class);
             Regexrename record = new Regexrename();
             record.setZipCode("99999");
-            
+
             mapper.insertSelective(record);
             Integer key = 1;
             assertEquals(key, record.getId());
-            
+
             Regexrename returnedRecord = mapper.selectByPrimaryKey(key);
-            
+
             assertNull(returnedRecord.getAddress());
             assertEquals(record.getId(), returnedRecord.getId());
             assertNull(record.getName(), returnedRecord.getName());
@@ -923,7 +897,7 @@ public class MiscellaneousTest extends AbstractMixedMiscellaneousTest {
             sqlSession.close();
         }
     }
-    
+
     @Test
     public void testMyObjectSelectByExampleLikeInsensitive() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -989,12 +963,12 @@ public class MiscellaneousTest extends AbstractMixedMiscellaneousTest {
             example.setOrderByClause("ID1, ID2");
             List<MyObject> answer = mapper.selectByExample(example);
             assertEquals(0, answer.size());
-            
+
             example.clear();
             example.createCriteria().andLastnameLikeInsensitive("RU%");
             answer = mapper.selectByExample(example);
             assertEquals(3, answer.size());
-            
+
             MyObject returnedRecord = answer.get(0);
             assertEquals(2, returnedRecord.getId1().intValue());
             assertEquals(1, returnedRecord.getId2().intValue());
@@ -1008,23 +982,23 @@ public class MiscellaneousTest extends AbstractMixedMiscellaneousTest {
             sqlSession.close();
         }
     }
-    
+
     @Test
     public void testEnum() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         try {
             EnumtestMapper mapper = sqlSession.getMapper(EnumtestMapper.class);
-            
+
             Enumtest enumTest = new Enumtest();
             enumTest.setId(1);
             enumTest.setName(TestEnum.FRED);
             int rows = mapper.insert(enumTest);
             assertEquals(1, rows);
-            
+
             List<Enumtest> returnedRecords = mapper.selectByExample(null);
             assertEquals(1, returnedRecords.size());
-            
+
             Enumtest returnedRecord = returnedRecords.get(0);
             assertEquals(1, returnedRecord.getId().intValue());
             assertEquals(TestEnum.FRED, returnedRecord.getName());

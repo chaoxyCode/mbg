@@ -1,23 +1,17 @@
 /**
- *    Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2019 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.api;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
 
 import org.mybatis.generator.api.dom.java.Field;
 import org.mybatis.generator.api.dom.java.Interface;
@@ -27,16 +21,18 @@ import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.Context;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Properties;
+
 /**
- * This class includes no-operation methods for almost every method in the
- * Plugin interface. Clients may extend this class to implement some or all of
- * the methods in a plugin.
- * 
- * <p>This adapter does not implement the <code>validate</code> method - all plugins
- * must perform validation.
- * 
+ * This class includes no-operation methods for almost every method in the Plugin interface. Clients
+ * may extend this class to implement some or all of the methods in a plugin.
+ *
+ * <p>This adapter does not implement the <code>validate</code> method - all plugins must perform
+ * validation.
+ *
  * @author Jeff Butler
- * 
  */
 public abstract class PluginAdapter implements Plugin {
     protected Context context;
@@ -87,229 +83,231 @@ public abstract class PluginAdapter implements Plugin {
     }
 
     @Override
-    public boolean clientBasicCountMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientBasicCountMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientBasicDeleteMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientBasicDeleteMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientBasicInsertMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientBasicInsertMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientBasicInsertMultipleMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientBasicInsertMultipleMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientBasicInsertMultipleHelperMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientBasicInsertMultipleHelperMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientBasicSelectManyMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientBasicSelectManyMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientBasicSelectOneMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientBasicSelectOneMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientBasicUpdateMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientBasicUpdateMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientCountByExampleMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+    public boolean clientCountByExampleMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientDeleteByExampleMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+    public boolean clientDeleteByExampleMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientDeleteByPrimaryKeyMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+    public boolean clientDeleteByPrimaryKeyMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientGeneralCountMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientGeneralCountMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientGeneralDeleteMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientGeneralDeleteMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientGeneralSelectDistinctMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientGeneralSelectDistinctMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientGeneralSelectMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientGeneralSelectMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientGeneralUpdateMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientGeneralUpdateMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientInsertMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientInsertMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientInsertMultipleMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientInsertMultipleMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientGenerated(Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientSelectByExampleWithBLOBsMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+    public boolean clientSelectByExampleWithBLOBsMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientSelectByExampleWithoutBLOBsMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+    public boolean clientSelectByExampleWithoutBLOBsMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientSelectByPrimaryKeyMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+    public boolean clientSelectByPrimaryKeyMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientSelectListFieldGenerated(Field field, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientSelectListFieldGenerated(
+            Field field, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientSelectOneMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientSelectOneMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientUpdateAllColumnsMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientUpdateAllColumnsMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientUpdateSelectiveColumnsMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+    public boolean clientUpdateSelectiveColumnsMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientUpdateByExampleSelectiveMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+    public boolean clientUpdateByExampleSelectiveMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientUpdateByExampleWithBLOBsMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+    public boolean clientUpdateByExampleWithBLOBsMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientUpdateByExampleWithoutBLOBsMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+    public boolean clientUpdateByExampleWithoutBLOBsMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientUpdateByPrimaryKeySelectiveMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+    public boolean clientUpdateByPrimaryKeySelectiveMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientUpdateByPrimaryKeyWithBLOBsMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+    public boolean clientUpdateByPrimaryKeyWithBLOBsMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
     public boolean clientUpdateByPrimaryKeyWithoutBLOBsMethodGenerated(
-            Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean modelBaseRecordClassGenerated(TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
+    public boolean modelBaseRecordClassGenerated(
+            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean modelExampleClassGenerated(TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
+    public boolean modelExampleClassGenerated(
+            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean modelFieldGenerated(Field field,
-            TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn,
+    public boolean modelFieldGenerated(
+            Field field,
+            TopLevelClass topLevelClass,
+            IntrospectedColumn introspectedColumn,
             IntrospectedTable introspectedTable,
             Plugin.ModelClassType modelClassType) {
         return true;
     }
 
     @Override
-    public boolean modelGetterMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn,
+    public boolean modelGetterMethodGenerated(
+            Method method,
+            TopLevelClass topLevelClass,
+            IntrospectedColumn introspectedColumn,
             IntrospectedTable introspectedTable,
             Plugin.ModelClassType modelClassType) {
         return true;
     }
 
     @Override
-    public boolean modelPrimaryKeyClassGenerated(TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
+    public boolean modelPrimaryKeyClassGenerated(
+            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
@@ -320,8 +318,10 @@ public abstract class PluginAdapter implements Plugin {
     }
 
     @Override
-    public boolean modelSetterMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn,
+    public boolean modelSetterMethodGenerated(
+            Method method,
+            TopLevelClass topLevelClass,
+            IntrospectedColumn introspectedColumn,
             IntrospectedTable introspectedTable,
             Plugin.ModelClassType modelClassType) {
         return true;
@@ -334,50 +334,48 @@ public abstract class PluginAdapter implements Plugin {
     }
 
     @Override
-    public boolean sqlMapCountByExampleElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+    public boolean sqlMapCountByExampleElementGenerated(
+            XmlElement element, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean sqlMapDeleteByExampleElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+    public boolean sqlMapDeleteByExampleElementGenerated(
+            XmlElement element, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean sqlMapDeleteByPrimaryKeyElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+    public boolean sqlMapDeleteByPrimaryKeyElementGenerated(
+            XmlElement element, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean sqlMapDocumentGenerated(Document document,
-            IntrospectedTable introspectedTable) {
+    public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean sqlMapExampleWhereClauseElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+    public boolean sqlMapExampleWhereClauseElementGenerated(
+            XmlElement element, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean sqlMapGenerated(GeneratedXmlFile sqlMap,
-            IntrospectedTable introspectedTable) {
+    public boolean sqlMapGenerated(GeneratedXmlFile sqlMap, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean sqlMapInsertElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+    public boolean sqlMapInsertElementGenerated(
+            XmlElement element, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean sqlMapResultMapWithBLOBsElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+    public boolean sqlMapResultMapWithBLOBsElementGenerated(
+            XmlElement element, IntrospectedTable introspectedTable) {
         return true;
     }
 
@@ -394,8 +392,8 @@ public abstract class PluginAdapter implements Plugin {
     }
 
     @Override
-    public boolean sqlMapSelectByPrimaryKeyElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+    public boolean sqlMapSelectByPrimaryKeyElementGenerated(
+            XmlElement element, IntrospectedTable introspectedTable) {
         return true;
     }
 
@@ -436,119 +434,113 @@ public abstract class PluginAdapter implements Plugin {
     }
 
     @Override
-    public boolean sqlMapInsertSelectiveElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+    public boolean sqlMapInsertSelectiveElementGenerated(
+            XmlElement element, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientInsertSelectiveMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+    public boolean clientInsertSelectiveMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public void initialized(IntrospectedTable introspectedTable) {
-    }
+    public void initialized(IntrospectedTable introspectedTable) {}
 
     @Override
-    public boolean sqlMapBaseColumnListElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+    public boolean sqlMapBaseColumnListElementGenerated(
+            XmlElement element, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean sqlMapBlobColumnListElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+    public boolean sqlMapBlobColumnListElementGenerated(
+            XmlElement element, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean providerGenerated(TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
-        return true;
-    }
-
-    @Override
-    public boolean providerApplyWhereMethodGenerated(Method method,
+    public boolean providerGenerated(
             TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean providerCountByExampleMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+    public boolean providerApplyWhereMethodGenerated(
+            Method method, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean providerDeleteByExampleMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+    public boolean providerCountByExampleMethodGenerated(
+            Method method, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean providerInsertSelectiveMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+    public boolean providerDeleteByExampleMethodGenerated(
+            Method method, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+        return true;
+    }
+
+    @Override
+    public boolean providerInsertSelectiveMethodGenerated(
+            Method method, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
     public boolean providerSelectByExampleWithBLOBsMethodGenerated(
-            Method method, TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
+            Method method, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
     public boolean providerSelectByExampleWithoutBLOBsMethodGenerated(
-            Method method, TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
+            Method method, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
     public boolean providerUpdateByExampleSelectiveMethodGenerated(
-            Method method, TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
+            Method method, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
     public boolean providerUpdateByExampleWithBLOBsMethodGenerated(
-            Method method, TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
+            Method method, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
     public boolean providerUpdateByExampleWithoutBLOBsMethodGenerated(
-            Method method, TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
+            Method method, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
     public boolean providerUpdateByPrimaryKeySelectiveMethodGenerated(
-            Method method, TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
+            Method method, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean clientSelectAllMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+    public boolean clientSelectAllMethodGenerated(
+            Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean sqlMapSelectAllElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+    public boolean sqlMapSelectAllElementGenerated(
+            XmlElement element, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean dynamicSqlSupportGenerated(TopLevelClass supportClass, IntrospectedTable introspectedTable) {
+    public boolean dynamicSqlSupportGenerated(
+            TopLevelClass supportClass, IntrospectedTable introspectedTable) {
         return true;
     }
 }

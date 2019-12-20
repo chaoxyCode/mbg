@@ -1,61 +1,33 @@
 /**
- *    Copyright 2006-2018 the original author or authors.
+ * Copyright 2006-2018 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mbg.test.mb3.mixed.flat;
 
-import static mbg.test.common.util.TestUtilities.blobsAreEqual;
-import static mbg.test.common.util.TestUtilities.datesAreEqual;
-import static mbg.test.common.util.TestUtilities.generateRandomBlob;
-import static mbg.test.common.util.TestUtilities.timesAreEqual;
-import static org.junit.jupiter.api.Assertions.*;
+import mbg.test.mb3.generated.mixed.flat.mapper.*;
+import mbg.test.mb3.generated.mixed.flat.model.*;
+import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.session.SqlSession;
-import org.junit.jupiter.api.Test;
+import static mbg.test.common.util.TestUtilities.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import mbg.test.mb3.generated.mixed.flat.mapper.AwfulTableMapper;
-import mbg.test.mb3.generated.mixed.flat.mapper.FieldsblobsMapper;
-import mbg.test.mb3.generated.mixed.flat.mapper.FieldsonlyMapper;
-import mbg.test.mb3.generated.mixed.flat.mapper.PkblobsMapper;
-import mbg.test.mb3.generated.mixed.flat.mapper.PkfieldsMapper;
-import mbg.test.mb3.generated.mixed.flat.mapper.PkfieldsblobsMapper;
-import mbg.test.mb3.generated.mixed.flat.mapper.PkonlyMapper;
-import mbg.test.mb3.generated.mixed.flat.model.AwfulTable;
-import mbg.test.mb3.generated.mixed.flat.model.AwfulTableExample;
-import mbg.test.mb3.generated.mixed.flat.model.Fieldsblobs;
-import mbg.test.mb3.generated.mixed.flat.model.FieldsblobsExample;
-import mbg.test.mb3.generated.mixed.flat.model.Fieldsonly;
-import mbg.test.mb3.generated.mixed.flat.model.FieldsonlyExample;
-import mbg.test.mb3.generated.mixed.flat.model.Pkblobs;
-import mbg.test.mb3.generated.mixed.flat.model.PkblobsExample;
-import mbg.test.mb3.generated.mixed.flat.model.Pkfields;
-import mbg.test.mb3.generated.mixed.flat.model.PkfieldsExample;
-import mbg.test.mb3.generated.mixed.flat.model.Pkfieldsblobs;
-import mbg.test.mb3.generated.mixed.flat.model.PkfieldsblobsExample;
-import mbg.test.mb3.generated.mixed.flat.model.Pkonly;
-import mbg.test.mb3.generated.mixed.flat.model.PkonlyExample;
-
-/**
- * @author Jeff Butler
- * 
- */
+/** @author Jeff Butler */
 public class FlatJava5Test extends AbstractMixedFlatTest {
 
     @Test
@@ -77,10 +49,8 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             assertEquals(1, answer.size());
 
             Fieldsonly returnedRecord = answer.get(0);
-            assertEquals(record.getIntegerfield(), returnedRecord
-                    .getIntegerfield());
-            assertEquals(record.getDoublefield(), returnedRecord
-                    .getDoublefield());
+            assertEquals(record.getIntegerfield(), returnedRecord.getIntegerfield());
+            assertEquals(record.getDoublefield(), returnedRecord.getDoublefield());
             assertEquals(record.getFloatfield(), returnedRecord.getFloatfield());
         } finally {
             sqlSession.close();
@@ -483,24 +453,17 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             Pkfields returnedRecord = mapper.selectByPrimaryKey(2, 1);
             assertNotNull(returnedRecord);
 
-            assertTrue(datesAreEqual(record.getDatefield(), returnedRecord
-                    .getDatefield()));
-            assertEquals(record.getDecimal100field(), returnedRecord
-                    .getDecimal100field());
-            assertEquals(record.getDecimal155field(), returnedRecord
-                    .getDecimal155field());
-            assertEquals(record.getDecimal30field(), returnedRecord
-                    .getDecimal30field());
-            assertEquals(record.getDecimal60field(), returnedRecord
-                    .getDecimal60field());
+            assertTrue(datesAreEqual(record.getDatefield(), returnedRecord.getDatefield()));
+            assertEquals(record.getDecimal100field(), returnedRecord.getDecimal100field());
+            assertEquals(record.getDecimal155field(), returnedRecord.getDecimal155field());
+            assertEquals(record.getDecimal30field(), returnedRecord.getDecimal30field());
+            assertEquals(record.getDecimal60field(), returnedRecord.getDecimal60field());
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(record.getLastname(), returnedRecord.getLastname());
-            assertTrue(timesAreEqual(record.getTimefield(), returnedRecord
-                    .getTimefield()));
-            assertEquals(record.getTimestampfield(), returnedRecord
-                    .getTimestampfield());
+            assertTrue(timesAreEqual(record.getTimefield(), returnedRecord.getTimefield()));
+            assertEquals(record.getTimestampfield(), returnedRecord.getTimestampfield());
         } finally {
             sqlSession.close();
         }
@@ -563,25 +526,17 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
 
             Pkfields returnedRecord = mapper.selectByPrimaryKey(2, 1);
 
-            assertTrue(datesAreEqual(record.getDatefield(), returnedRecord
-                    .getDatefield()));
-            assertEquals(record.getDecimal100field(), returnedRecord
-                    .getDecimal100field());
-            assertEquals(record.getDecimal155field(), returnedRecord
-                    .getDecimal155field());
-            assertEquals(record.getDecimal30field(), returnedRecord
-                    .getDecimal30field());
-            assertEquals(newRecord.getDecimal60field(), returnedRecord
-                    .getDecimal60field());
-            assertEquals(newRecord.getFirstname(), returnedRecord
-                    .getFirstname());
+            assertTrue(datesAreEqual(record.getDatefield(), returnedRecord.getDatefield()));
+            assertEquals(record.getDecimal100field(), returnedRecord.getDecimal100field());
+            assertEquals(record.getDecimal155field(), returnedRecord.getDecimal155field());
+            assertEquals(record.getDecimal30field(), returnedRecord.getDecimal30field());
+            assertEquals(newRecord.getDecimal60field(), returnedRecord.getDecimal60field());
+            assertEquals(newRecord.getFirstname(), returnedRecord.getFirstname());
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(record.getLastname(), returnedRecord.getLastname());
-            assertTrue(timesAreEqual(record.getTimefield(), returnedRecord
-                    .getTimefield()));
-            assertEquals(record.getTimestampfield(), returnedRecord
-                    .getTimestampfield());
+            assertTrue(timesAreEqual(record.getTimefield(), returnedRecord.getTimefield()));
+            assertEquals(record.getTimestampfield(), returnedRecord.getTimestampfield());
         } finally {
             sqlSession.close();
         }
@@ -1078,7 +1033,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             sqlSession.close();
         }
     }
-    
+
     @Test
     public void testPKFieldsSelectByExampleNoCriteria() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -1197,8 +1152,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             values.add(22);
 
             PkfieldsExample example = new PkfieldsExample();
-            example.createCriteria().andWierdFieldLessThan(40).andWierdFieldIn(
-                    values);
+            example.createCriteria().andWierdFieldLessThan(40).andWierdFieldIn(values);
 
             example.setOrderByClause("ID1, ID2");
             List<Pkfields> answer = mapper.selectByExample(example);
@@ -1259,10 +1213,8 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
 
             Pkblobs returnedRecord = answer.get(0);
             assertEquals(record.getId(), returnedRecord.getId());
-            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord
-                    .getBlob1()));
-            assertTrue(blobsAreEqual(record.getBlob2(), returnedRecord
-                    .getBlob2()));
+            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
+            assertTrue(blobsAreEqual(record.getBlob2(), returnedRecord.getBlob2()));
         } finally {
             sqlSession.close();
         }
@@ -1318,10 +1270,8 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             Pkblobs returnedRecord = mapper.selectByPrimaryKey(3);
             assertNotNull(returnedRecord);
             assertEquals(record.getId(), returnedRecord.getId());
-            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord
-                    .getBlob1()));
-            assertTrue(blobsAreEqual(newRecord.getBlob2(), returnedRecord
-                    .getBlob2()));
+            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
+            assertTrue(blobsAreEqual(newRecord.getBlob2(), returnedRecord.getBlob2()));
         } finally {
             sqlSession.close();
         }
@@ -1565,8 +1515,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
             assertEquals(record.getLastname(), returnedRecord.getLastname());
-            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord
-                    .getBlob1()));
+            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
         } finally {
             sqlSession.close();
         }
@@ -1601,8 +1550,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             assertEquals(updateRecord.getLastname(), newRecord.getLastname());
             assertEquals(record.getId1(), newRecord.getId1());
             assertEquals(record.getId2(), newRecord.getId2());
-            assertTrue(blobsAreEqual(updateRecord.getBlob1(), newRecord
-                    .getBlob1()));
+            assertTrue(blobsAreEqual(updateRecord.getBlob1(), newRecord.getBlob1()));
         } finally {
             sqlSession.close();
         }
@@ -1666,12 +1614,10 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
 
             Pkfieldsblobs returnedRecord = mapper.selectByPrimaryKey(3, 4);
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
-            assertEquals(updateRecord.getLastname(), returnedRecord
-                    .getLastname());
+            assertEquals(updateRecord.getLastname(), returnedRecord.getLastname());
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
-            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord
-                    .getBlob1()));
+            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
         } finally {
             sqlSession.close();
         }
@@ -1700,8 +1646,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             mapper.insert(record);
 
             PkfieldsblobsExample example = new PkfieldsblobsExample();
-            List<Pkfieldsblobs> answer = mapper
-                    .selectByExample(example);
+            List<Pkfieldsblobs> answer = mapper.selectByExample(example);
             assertEquals(2, answer.size());
 
             int rows = mapper.deleteByPrimaryKey(5, 6);
@@ -1738,8 +1683,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             mapper.insert(record);
 
             PkfieldsblobsExample example = new PkfieldsblobsExample();
-            List<Pkfieldsblobs> answer = mapper
-                    .selectByExample(example);
+            List<Pkfieldsblobs> answer = mapper.selectByExample(example);
             assertEquals(2, answer.size());
 
             example = new PkfieldsblobsExample();
@@ -1778,8 +1722,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             mapper.insert(record);
 
             PkfieldsblobsExample example = new PkfieldsblobsExample();
-            List<Pkfieldsblobs> answer = mapper
-                    .selectByExample(example);
+            List<Pkfieldsblobs> answer = mapper.selectByExample(example);
             assertEquals(2, answer.size());
 
             Pkfieldsblobs newRecord = mapper.selectByPrimaryKey(5, 6);
@@ -1817,8 +1760,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
 
             PkfieldsblobsExample example = new PkfieldsblobsExample();
             example.createCriteria().andId2EqualTo(6);
-            List<Pkfieldsblobs> answer = mapper
-                    .selectByExample(example);
+            List<Pkfieldsblobs> answer = mapper.selectByExample(example);
             assertEquals(1, answer.size());
 
             Pkfieldsblobs newRecord = answer.get(0);
@@ -1921,10 +1863,8 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             Fieldsblobs returnedRecord = answer.get(0);
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
             assertEquals(record.getLastname(), returnedRecord.getLastname());
-            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord
-                    .getBlob1()));
-            assertTrue(blobsAreEqual(record.getBlob2(), returnedRecord
-                    .getBlob2()));
+            assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
+            assertTrue(blobsAreEqual(record.getBlob2(), returnedRecord.getBlob2()));
         } finally {
             sqlSession.close();
         }
@@ -2124,25 +2064,20 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             Integer generatedCustomerId = record.getCustomerId();
             assertEquals(57, generatedCustomerId.intValue());
 
-            AwfulTable returnedRecord = mapper
-                    .selectByPrimaryKey(generatedCustomerId);
+            AwfulTable returnedRecord = mapper.selectByPrimaryKey(generatedCustomerId);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
-            assertEquals(record.getEmailaddress(), returnedRecord
-                    .getEmailaddress());
-            assertEquals(record.getFirstFirstName(), returnedRecord
-                    .getFirstFirstName());
+            assertEquals(record.getEmailaddress(), returnedRecord.getEmailaddress());
+            assertEquals(record.getFirstFirstName(), returnedRecord.getFirstFirstName());
             assertEquals(record.getFrom(), returnedRecord.getFrom());
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(record.getId5(), returnedRecord.getId5());
             assertEquals(record.getId6(), returnedRecord.getId6());
             assertEquals(record.getId7(), returnedRecord.getId7());
-            assertEquals(record.getSecondFirstName(), returnedRecord
-                    .getSecondFirstName());
-            assertEquals(record.getThirdFirstName(), returnedRecord
-                    .getThirdFirstName());
+            assertEquals(record.getSecondFirstName(), returnedRecord.getSecondFirstName());
+            assertEquals(record.getThirdFirstName(), returnedRecord.getThirdFirstName());
         } finally {
             sqlSession.close();
         }
@@ -2171,13 +2106,11 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             Integer generatedCustomerId = record.getCustomerId();
             assertEquals(57, generatedCustomerId.intValue());
 
-            AwfulTable returnedRecord = mapper
-                    .selectByPrimaryKey(generatedCustomerId);
+            AwfulTable returnedRecord = mapper.selectByPrimaryKey(generatedCustomerId);
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
-            assertEquals(record.getEmailaddress(), returnedRecord
-                    .getEmailaddress());
+            assertEquals(record.getEmailaddress(), returnedRecord.getEmailaddress());
             assertEquals("Mabel", returnedRecord.getFirstFirstName());
             assertEquals(record.getFrom(), returnedRecord.getFrom());
             assertEquals(record.getId1(), returnedRecord.getId1());
@@ -2185,15 +2118,13 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             assertEquals(record.getId5(), returnedRecord.getId5());
             assertEquals(record.getId6(), returnedRecord.getId6());
             assertEquals(record.getId7(), returnedRecord.getId7());
-            assertEquals(record.getSecondFirstName(), returnedRecord
-                    .getSecondFirstName());
-            assertEquals(record.getThirdFirstName(), returnedRecord
-                    .getThirdFirstName());
+            assertEquals(record.getSecondFirstName(), returnedRecord.getSecondFirstName());
+            assertEquals(record.getThirdFirstName(), returnedRecord.getThirdFirstName());
         } finally {
             sqlSession.close();
         }
     }
-    
+
     @Test
     public void testAwfulTableUpdateByPrimaryKey() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -2226,20 +2157,16 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
-            assertEquals(record.getEmailaddress(), returnedRecord
-                    .getEmailaddress());
-            assertEquals(record.getFirstFirstName(), returnedRecord
-                    .getFirstFirstName());
+            assertEquals(record.getEmailaddress(), returnedRecord.getEmailaddress());
+            assertEquals(record.getFirstFirstName(), returnedRecord.getFirstFirstName());
             assertEquals(record.getFrom(), returnedRecord.getFrom());
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(record.getId5(), returnedRecord.getId5());
             assertEquals(record.getId6(), returnedRecord.getId6());
             assertEquals(record.getId7(), returnedRecord.getId7());
-            assertEquals(record.getSecondFirstName(), returnedRecord
-                    .getSecondFirstName());
-            assertEquals(record.getThirdFirstName(), returnedRecord
-                    .getThirdFirstName());
+            assertEquals(record.getSecondFirstName(), returnedRecord.getSecondFirstName());
+            assertEquals(record.getThirdFirstName(), returnedRecord.getThirdFirstName());
         } finally {
             sqlSession.close();
         }
@@ -2279,20 +2206,16 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
 
             assertEquals(generatedCustomerId, returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
-            assertEquals(record.getEmailaddress(), returnedRecord
-                    .getEmailaddress());
-            assertEquals(record.getFirstFirstName(), returnedRecord
-                    .getFirstFirstName());
+            assertEquals(record.getEmailaddress(), returnedRecord.getEmailaddress());
+            assertEquals(record.getFirstFirstName(), returnedRecord.getFirstFirstName());
             assertEquals(record.getFrom(), returnedRecord.getFrom());
             assertEquals(newRecord.getId1(), returnedRecord.getId1());
             assertEquals(newRecord.getId2(), returnedRecord.getId2());
             assertEquals(record.getId5(), returnedRecord.getId5());
             assertEquals(record.getId6(), returnedRecord.getId6());
             assertEquals(record.getId7(), returnedRecord.getId7());
-            assertEquals(record.getSecondFirstName(), returnedRecord
-                    .getSecondFirstName());
-            assertEquals(record.getThirdFirstName(), returnedRecord
-                    .getThirdFirstName());
+            assertEquals(record.getSecondFirstName(), returnedRecord.getSecondFirstName());
+            assertEquals(record.getThirdFirstName(), returnedRecord.getThirdFirstName());
         } finally {
             sqlSession.close();
         }
@@ -2426,20 +2349,16 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             assertNotNull(returnedRecord);
             assertEquals(record.getCustomerId(), returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
-            assertEquals(record.getEmailaddress(), returnedRecord
-                    .getEmailaddress());
-            assertEquals(record.getFirstFirstName(), returnedRecord
-                    .getFirstFirstName());
+            assertEquals(record.getEmailaddress(), returnedRecord.getEmailaddress());
+            assertEquals(record.getFirstFirstName(), returnedRecord.getFirstFirstName());
             assertEquals(record.getFrom(), returnedRecord.getFrom());
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(record.getId5(), returnedRecord.getId5());
             assertEquals(record.getId6(), returnedRecord.getId6());
             assertEquals(record.getId7(), returnedRecord.getId7());
-            assertEquals(record.getSecondFirstName(), returnedRecord
-                    .getSecondFirstName());
-            assertEquals(record.getThirdFirstName(), returnedRecord
-                    .getThirdFirstName());
+            assertEquals(record.getSecondFirstName(), returnedRecord.getSecondFirstName());
+            assertEquals(record.getThirdFirstName(), returnedRecord.getThirdFirstName());
         } finally {
             sqlSession.close();
         }
@@ -2662,7 +2581,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             sqlSession.close();
         }
     }
-    
+
     @Test
     public void testAwfulTableSelectByExampleComplexLike() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -2868,7 +2787,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             example.createCriteria().andId1In(ids);
             example.setOrderByClause("\"A_CuStOmEr iD\"");
             List<AwfulTable> answer = mapper.selectByExample(example);
-            
+
             assertEquals(2, answer.size());
             AwfulTable returnedRecord = answer.get(0);
             assertEquals(1, returnedRecord.getId1().intValue());
@@ -3073,7 +2992,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             AwfulTableExample example = new AwfulTableExample();
             example.createCriteria();
             example.setOrderByClause("\"A_CuStOmEr iD\" desc");
-            
+
             List<AwfulTable> answer = mapper.selectByExample(example);
             assertEquals(6, answer.size());
             AwfulTable returnedRecord = answer.get(0);
@@ -3141,39 +3060,39 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
             sqlSession.close();
         }
     }
-    
+
     @Test
     public void testEquals1() {
         Pkfields pkfields1 = new Pkfields();
         assertFalse(pkfields1.equals(null));
     }
-    
+
     @Test
     public void testEquals2() {
         Pkfields pkfields1 = new Pkfields();
         Pkfields pkfields2 = new Pkfields();
         assertTrue(pkfields1.equals(pkfields2));
     }
-    
+
     @Test
     public void testEquals3() {
         Pkfields pkfields1 = new Pkfields();
         pkfields1.setId1(2);
-        
+
         Pkfields pkfields2 = new Pkfields();
         pkfields2.setId1(2);
-        
+
         assertTrue(pkfields1.equals(pkfields2));
     }
-    
+
     @Test
     public void testEquals4() {
         Pkfields pkfields1 = new Pkfields();
         pkfields1.setId1(2);
-        
+
         Pkfields pkfields2 = new Pkfields();
         pkfields2.setId1(3);
-        
+
         assertFalse(pkfields1.equals(pkfields2));
     }
 
@@ -3210,9 +3129,9 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
         awfulTable2.setLastName("Rubble");
         awfulTable2.setSecondFirstName("Bamm Bamm");
         awfulTable2.setThirdFirstName("Pebbles");
-        
+
         assertTrue(awfulTable1.equals(awfulTable2));
-        
+
         awfulTable2.setActive(true);
         assertFalse(awfulTable1.equals(awfulTable2));
     }
@@ -3223,15 +3142,15 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
         Pkfields pkfields2 = new Pkfields();
         assertTrue(pkfields1.hashCode() == pkfields2.hashCode());
     }
-    
+
     @Test
     public void testHashCode2() {
         Pkfields pkfields1 = new Pkfields();
         pkfields1.setId1(2);
-        
+
         Pkfields pkfields2 = new Pkfields();
         pkfields2.setId1(2);
-        
+
         assertTrue(pkfields1.hashCode() == pkfields2.hashCode());
     }
 
@@ -3268,7 +3187,7 @@ public class FlatJava5Test extends AbstractMixedFlatTest {
         awfulTable2.setLastName("Rubble");
         awfulTable2.setSecondFirstName("Bamm Bamm");
         awfulTable2.setThirdFirstName("Pebbles");
-        
+
         assertTrue(awfulTable1.hashCode() == awfulTable2.hashCode());
     }
 }

@@ -1,38 +1,31 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
+ * Copyright 2006-2016 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.eclipse.core.tests.merge.support;
 
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.api.dom.DefaultJavaFormatter;
-import org.mybatis.generator.api.dom.java.Field;
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
-import org.mybatis.generator.api.dom.java.Interface;
-import org.mybatis.generator.api.dom.java.JavaVisibility;
-import org.mybatis.generator.api.dom.java.Method;
-import org.mybatis.generator.api.dom.java.Parameter;
-import org.mybatis.generator.api.dom.java.TopLevelClass;
+import org.mybatis.generator.api.dom.java.*;
 
 public class TestResourceGenerator {
 
     private static TestCommentGenerator commentGenerator = new TestCommentGenerator();
-    
+
     public static String simpleClassWithAllGeneratedItems() {
-        TopLevelClass tlc = new TopLevelClass(new FullyQualifiedJavaType("org.mybatis.test.SimpleClass"));
+        TopLevelClass tlc =
+                new TopLevelClass(new FullyQualifiedJavaType("org.mybatis.test.SimpleClass"));
         tlc.setVisibility(JavaVisibility.PUBLIC);
-        
+
         Field field = new Field("id", FullyQualifiedJavaType.getIntInstance());
         field.setVisibility(JavaVisibility.PRIVATE);
         commentGenerator.addFieldComment(field);
@@ -44,7 +37,7 @@ public class TestResourceGenerator {
         method.setVisibility(JavaVisibility.PUBLIC);
         commentGenerator.addMethodComment(method);
         tlc.addMethod(method);
-        
+
         method = new Method("setId");
         method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "id"));
         method.addBodyLine("this.id = id;");
@@ -56,9 +49,10 @@ public class TestResourceGenerator {
     }
 
     public static String simpleClassWithGeneratedAndCustomItems() {
-        TopLevelClass tlc = new TopLevelClass(new FullyQualifiedJavaType("org.mybatis.test.SimpleClass"));
+        TopLevelClass tlc =
+                new TopLevelClass(new FullyQualifiedJavaType("org.mybatis.test.SimpleClass"));
         tlc.setVisibility(JavaVisibility.PUBLIC);
-        
+
         Field field = new Field("description", FullyQualifiedJavaType.getStringInstance());
         field.setVisibility(JavaVisibility.PRIVATE);
         commentGenerator.addFieldComment(field);
@@ -70,9 +64,10 @@ public class TestResourceGenerator {
         method.setVisibility(JavaVisibility.PUBLIC);
         commentGenerator.addMethodComment(method);
         tlc.addMethod(method);
-        
+
         method = new Method("setDescription");
-        method.addParameter(new Parameter(FullyQualifiedJavaType.getStringInstance(), "description"));
+        method.addParameter(
+                new Parameter(FullyQualifiedJavaType.getStringInstance(), "description"));
         method.addBodyLine("this.description = description;");
         method.setVisibility(JavaVisibility.PUBLIC);
         commentGenerator.addMethodComment(method);
@@ -90,7 +85,7 @@ public class TestResourceGenerator {
         method.addBodyLine("return amount;");
         method.setVisibility(JavaVisibility.PUBLIC);
         tlc.addMethod(method);
-        
+
         method = new Method("setAmount");
         method.addParameter(new Parameter(bigDecimal, "amount"));
         method.addBodyLine("this.amount = amount;");
@@ -101,14 +96,15 @@ public class TestResourceGenerator {
     }
 
     public static String simpleInterfaceWithAllGeneratedItems() {
-        Interface itf = new Interface(new FullyQualifiedJavaType("org.mybatis.test.SimpleInterface"));
+        Interface itf =
+                new Interface(new FullyQualifiedJavaType("org.mybatis.test.SimpleInterface"));
         itf.setVisibility(JavaVisibility.PUBLIC);
-        
+
         Method method = new Method("count");
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
         commentGenerator.addMethodComment(method);
         itf.addMethod(method);
-        
+
         method = new Method("add");
         method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "a"));
         method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "b"));
@@ -120,9 +116,10 @@ public class TestResourceGenerator {
     }
 
     public static String simpleInterfaceWithGeneratedAndCustomItems() {
-        Interface itf = new Interface(new FullyQualifiedJavaType("org.mybatis.test.SimpleInterface"));
+        Interface itf =
+                new Interface(new FullyQualifiedJavaType("org.mybatis.test.SimpleInterface"));
         itf.setVisibility(JavaVisibility.PUBLIC);
-        
+
         Method method = new Method("subtract");
         method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "a"));
         method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "b"));
@@ -148,14 +145,16 @@ public class TestResourceGenerator {
         method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "a"));
         method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "b"));
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
-        method.addAnnotation("@javax.annotation.Generated(\"" + MyBatisGenerator.class.getName() + "\")");
+        method.addAnnotation(
+                "@javax.annotation.Generated(\"" + MyBatisGenerator.class.getName() + "\")");
         itf.addMethod(method);
 
         method = new Method("add2");
         method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "a"));
         method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "b"));
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
-        method.addAnnotation("@javax.annotation.Generated(value=\"" + MyBatisGenerator.class.getName() + "\")");
+        method.addAnnotation(
+                "@javax.annotation.Generated(value=\"" + MyBatisGenerator.class.getName() + "\")");
         itf.addMethod(method);
 
         method = new Method("nonGeneratedMethod");

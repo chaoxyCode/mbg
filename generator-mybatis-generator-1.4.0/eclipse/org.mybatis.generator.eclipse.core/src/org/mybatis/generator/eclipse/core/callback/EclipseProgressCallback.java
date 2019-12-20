@@ -19,9 +19,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.mybatis.generator.api.ProgressCallback;
 
-/**
- * @author Jeff Butler
- */
+/** @author Jeff Butler */
 public class EclipseProgressCallback implements ProgressCallback {
     private static final int INTROSPECTION_FACTOR = 2000;
     private static final int GENERATION_FACTOR = 4000;
@@ -30,14 +28,13 @@ public class EclipseProgressCallback implements ProgressCallback {
     private SubMonitor parentProgress;
     private SubMonitor currentChildProgress;
     private int currentTick;
-    
-    /**
-     * 
-     */
+
+    /** */
     public EclipseProgressCallback(IProgressMonitor progressMonitor) {
         super();
-        parentProgress = SubMonitor.convert(progressMonitor,
-                INTROSPECTION_FACTOR + GENERATION_FACTOR + SAVE_FACTOR);
+        parentProgress =
+                SubMonitor.convert(
+                        progressMonitor, INTROSPECTION_FACTOR + GENERATION_FACTOR + SAVE_FACTOR);
     }
 
     /*
@@ -80,7 +77,7 @@ public class EclipseProgressCallback implements ProgressCallback {
         if (currentTick == 0) {
             currentTick = 1;
         }
-        
+
         currentChildProgress.beginTask("Saving Generated Files", SAVE_FACTOR);
     }
 

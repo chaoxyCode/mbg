@@ -1,17 +1,15 @@
 /**
- *    Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2019 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.runtime.kotlin.elements;
 
@@ -35,31 +33,45 @@ public class BasicSelectOneMethodGenerator extends AbstractKotlinFunctionGenerat
 
     @Override
     public KotlinFunctionAndImports generateMethodAndImports() {
-        KotlinFunctionAndImports functionAndImports = KotlinFunctionAndImports
-                .withFunction(KotlinFunction.newOneLineFunction("selectOne") //$NON-NLS-1$
-                        .withExplicitReturnType(recordType.getShortNameWithTypeArguments() + "?") //$NON-NLS-1$
-                        .withArgument(KotlinArg.newArg("selectStatement") //$NON-NLS-1$
-                                .withDataType("SelectStatementProvider") //$NON-NLS-1$
-                                .build())
-                        .withAnnotation("@SelectProvider(type=SqlProviderAdapter::class," //$NON-NLS-1$
-                                + " method=\"select\")") //$NON-NLS-1$
-                        .build())
-                .withImport("org.mybatis.dynamic.sql.select.render.SelectStatementProvider") //$NON-NLS-1$
-                .withImport("org.mybatis.dynamic.sql.util.SqlProviderAdapter") //$NON-NLS-1$
-                .withImport("org.apache.ibatis.annotations.SelectProvider") //$NON-NLS-1$
-                .withImports(recordType.getImportList())
-                .build();
+        KotlinFunctionAndImports functionAndImports =
+                KotlinFunctionAndImports.withFunction(
+                                KotlinFunction.newOneLineFunction("selectOne") // $NON-NLS-1$
+                                        .withExplicitReturnType(
+                                                recordType.getShortNameWithTypeArguments()
+                                                        + "?") //$NON-NLS-1$
+                                        .withArgument(
+                                                KotlinArg.newArg("selectStatement") // $NON-NLS-1$
+                                                        .withDataType(
+                                                                "SelectStatementProvider") //$NON-NLS-1$
+                                                        .build())
+                                        .withAnnotation(
+                                                "@SelectProvider(type=SqlProviderAdapter::class," //$NON-NLS-1$
+                                                        + " method=\"select\")") //$NON-NLS-1$
+                                        .build())
+                        .withImport(
+                                "org.mybatis.dynamic.sql.select.render.SelectStatementProvider") //$NON-NLS-1$
+                        .withImport(
+                                "org.mybatis.dynamic.sql.util.SqlProviderAdapter") //$NON-NLS-1$
+                        .withImport("org.apache.ibatis.annotations.SelectProvider") // $NON-NLS-1$
+                        .withImports(recordType.getImportList())
+                        .build();
 
         addFunctionComment(functionAndImports);
 
-        boolean reuseResultMap = introspectedTable.getRules().generateSelectByExampleWithBLOBs()
-                || introspectedTable.getRules().generateSelectByExampleWithoutBLOBs();
+        boolean reuseResultMap =
+                introspectedTable.getRules().generateSelectByExampleWithBLOBs()
+                        || introspectedTable.getRules().generateSelectByExampleWithoutBLOBs();
 
         if (reuseResultMap) {
-            functionAndImports.getImports().add("org.apache.ibatis.annotations.ResultMap"); //$NON-NLS-1$
-            functionAndImports.getFunction().addAnnotation("@ResultMap(\"" //$NON-NLS-1$
-                    + resultMapId
-                    + "\")"); //$NON-NLS-1$
+            functionAndImports
+                    .getImports()
+                    .add("org.apache.ibatis.annotations.ResultMap"); // $NON-NLS-1$
+            functionAndImports
+                    .getFunction()
+                    .addAnnotation(
+                            "@ResultMap(\"" //$NON-NLS-1$
+                                    + resultMapId
+                                    + "\")"); //$NON-NLS-1$
         } else {
             KotlinFunctionParts functionParts = fragmentGenerator.getAnnotatedResults();
             acceptParts(functionAndImports, functionParts);
@@ -70,7 +82,8 @@ public class BasicSelectOneMethodGenerator extends AbstractKotlinFunctionGenerat
 
     @Override
     public boolean callPlugins(KotlinFunction kotlinFunction, KotlinFile kotlinFile) {
-        return context.getPlugins().clientBasicSelectOneMethodGenerated(kotlinFunction, kotlinFile, introspectedTable);
+        return context.getPlugins()
+                .clientBasicSelectOneMethodGenerated(kotlinFunction, kotlinFile, introspectedTable);
     }
 
     public static class Builder extends BaseBuilder<Builder, BasicSelectOneMethodGenerator> {

@@ -1,17 +1,15 @@
 /**
- *    Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2019 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.api.dom.kotlin;
 
@@ -25,8 +23,8 @@ public class KotlinProperty extends KotlinNamedItem {
     private Type type;
 
     public enum Type {
-        VAL("val"), //$NON-NLS-1$
-        VAR("var"); //$NON-NLS-1$
+        VAL("val"), // $NON-NLS-1$
+        VAR("var"); // $NON-NLS-1$
 
         private String value;
 
@@ -38,18 +36,18 @@ public class KotlinProperty extends KotlinNamedItem {
             return value;
         }
     }
-    
+
     private KotlinProperty(Builder builder) {
         super(builder);
         dataType = builder.dataType;
         initializationString = builder.initializationString;
         type = Objects.requireNonNull(builder.type);
     }
-    
+
     public Optional<String> getInitializationString() {
         return Optional.ofNullable(initializationString);
     }
-    
+
     public Optional<String> getDataType() {
         return Optional.ofNullable(dataType);
     }

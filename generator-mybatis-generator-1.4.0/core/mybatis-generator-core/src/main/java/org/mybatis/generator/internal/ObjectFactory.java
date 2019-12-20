@@ -1,53 +1,36 @@
 /**
- *    Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2019 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.internal;
 
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.mybatis.generator.api.CommentGenerator;
-import org.mybatis.generator.api.ConnectionFactory;
-import org.mybatis.generator.api.FullyQualifiedTable;
-import org.mybatis.generator.api.IntrospectedColumn;
-import org.mybatis.generator.api.IntrospectedTable;
-import org.mybatis.generator.api.JavaFormatter;
-import org.mybatis.generator.api.JavaTypeResolver;
-import org.mybatis.generator.api.KotlinFormatter;
-import org.mybatis.generator.api.Plugin;
-import org.mybatis.generator.api.XmlFormatter;
+import org.mybatis.generator.api.*;
 import org.mybatis.generator.api.dom.DefaultJavaFormatter;
 import org.mybatis.generator.api.dom.DefaultKotlinFormatter;
 import org.mybatis.generator.api.dom.DefaultXmlFormatter;
 import org.mybatis.generator.codegen.mybatis3.IntrospectedTableMyBatis3Impl;
 import org.mybatis.generator.codegen.mybatis3.IntrospectedTableMyBatis3SimpleImpl;
-import org.mybatis.generator.config.CommentGeneratorConfiguration;
-import org.mybatis.generator.config.ConnectionFactoryConfiguration;
-import org.mybatis.generator.config.Context;
-import org.mybatis.generator.config.JavaTypeResolverConfiguration;
-import org.mybatis.generator.config.PluginConfiguration;
-import org.mybatis.generator.config.PropertyRegistry;
-import org.mybatis.generator.config.TableConfiguration;
+import org.mybatis.generator.config.*;
 import org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl;
 import org.mybatis.generator.runtime.dynamic.sql.IntrospectedTableMyBatis3DynamicSqlImplV1;
 import org.mybatis.generator.runtime.dynamic.sql.IntrospectedTableMyBatis3DynamicSqlImplV2;
 import org.mybatis.generator.runtime.kotlin.IntrospectedTableKotlinImpl;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
  * This class creates the different objects needed by the generator.
@@ -62,50 +45,42 @@ public class ObjectFactory {
         externalClassLoaders = new ArrayList<>();
     }
 
-    /**
-     * Utility class. No instances allowed.
-     */
+    /** Utility class. No instances allowed. */
     private ObjectFactory() {
         super();
     }
 
     /**
-     * Clears the class loaders.  This method should be called at the beginning of
-     * a generation run so that and change to the classloading configuration
-     * will be reflected.  For example, if the eclipse launcher changes configuration
-     * it might not be updated if eclipse hasn't been restarted.
-     * 
+     * Clears the class loaders. This method should be called at the beginning of a generation run
+     * so that and change to the classloading configuration will be reflected. For example, if the
+     * eclipse launcher changes configuration it might not be updated if eclipse hasn't been
+     * restarted.
      */
     public static void reset() {
         externalClassLoaders.clear();
     }
 
     /**
-     * Adds a custom classloader to the collection of classloaders searched for "external" classes. These are classes
-     * that do not depend on any of the generator's classes or interfaces. Examples are JDBC drivers, root classes, root
-     * interfaces, etc.
+     * Adds a custom classloader to the collection of classloaders searched for "external" classes.
+     * These are classes that do not depend on any of the generator's classes or interfaces.
+     * Examples are JDBC drivers, root classes, root interfaces, etc.
      *
-     * @param classLoader
-     *            the class loader
+     * @param classLoader the class loader
      */
-    public static synchronized void addExternalClassLoader(
-            ClassLoader classLoader) {
+    public static synchronized void addExternalClassLoader(ClassLoader classLoader) {
         ObjectFactory.externalClassLoaders.add(classLoader);
     }
 
     /**
-     * Returns a class loaded from the context classloader, or the classloader supplied by a client. This is
-     * appropriate for JDBC drivers, model root classes, etc. It is not appropriate for any class that extends one of
-     * the supplied classes or interfaces.
+     * Returns a class loaded from the context classloader, or the classloader supplied by a client.
+     * This is appropriate for JDBC drivers, model root classes, etc. It is not appropriate for any
+     * class that extends one of the supplied classes or interfaces.
      *
-     * @param type
-     *            the type
+     * @param type the type
      * @return the Class loaded from the external classloader
-     * @throws ClassNotFoundException
-     *             the class not found exception
+     * @throws ClassNotFoundException the class not found exception
      */
-    public static Class<?> externalClassForName(String type)
-            throws ClassNotFoundException {
+    public static Class<?> externalClassForName(String type) throws ClassNotFoundException {
 
         Class<?> clazz;
 
@@ -128,15 +103,13 @@ public class ObjectFactory {
             Class<?> clazz = externalClassForName(type);
             answer = clazz.getConstructor().newInstance();
         } catch (Exception e) {
-            throw new RuntimeException(getString(
-                    "RuntimeError.6", type), e); //$NON-NLS-1$
+            throw new RuntimeException(getString("RuntimeError.6", type), e); // $NON-NLS-1$
         }
 
         return answer;
     }
 
-    public static Class<?> internalClassForName(String type)
-            throws ClassNotFoundException {
+    public static Class<?> internalClassForName(String type) throws ClassNotFoundException {
         Class<?> clazz = null;
 
         try {
@@ -181,23 +154,19 @@ public class ObjectFactory {
 
             answer = clazz.getConstructor().newInstance();
         } catch (Exception e) {
-            throw new RuntimeException(getString(
-                    "RuntimeError.6", type), e); //$NON-NLS-1$
-
+            throw new RuntimeException(getString("RuntimeError.6", type), e); // $NON-NLS-1$
         }
 
         return answer;
     }
 
-    public static JavaTypeResolver createJavaTypeResolver(Context context,
-            List<String> warnings) {
-        JavaTypeResolverConfiguration config = context
-                .getJavaTypeResolverConfiguration();
+    public static JavaTypeResolver createJavaTypeResolver(Context context, List<String> warnings) {
+        JavaTypeResolverConfiguration config = context.getJavaTypeResolverConfiguration();
         String type;
 
         if (config != null && config.getConfigurationType() != null) {
             type = config.getConfigurationType();
-            if ("DEFAULT".equalsIgnoreCase(type)) { //$NON-NLS-1$
+            if ("DEFAULT".equalsIgnoreCase(type)) { // $NON-NLS-1$
                 type = JavaTypeResolverDefaultImpl.class.getName();
             }
         } else {
@@ -216,10 +185,8 @@ public class ObjectFactory {
         return answer;
     }
 
-    public static Plugin createPlugin(Context context,
-            PluginConfiguration pluginConfiguration) {
-        Plugin plugin = (Plugin) createInternalObject(pluginConfiguration
-                .getConfigurationType());
+    public static Plugin createPlugin(Context context, PluginConfiguration pluginConfiguration) {
+        Plugin plugin = (Plugin) createInternalObject(pluginConfiguration.getConfigurationType());
         plugin.setContext(context);
         plugin.setProperties(pluginConfiguration.getProperties());
         return plugin;
@@ -227,8 +194,7 @@ public class ObjectFactory {
 
     public static CommentGenerator createCommentGenerator(Context context) {
 
-        CommentGeneratorConfiguration config = context
-                .getCommentGeneratorConfiguration();
+        CommentGeneratorConfiguration config = context.getCommentGeneratorConfiguration();
         CommentGenerator answer;
 
         String type;
@@ -249,8 +215,7 @@ public class ObjectFactory {
 
     public static ConnectionFactory createConnectionFactory(Context context) {
 
-        ConnectionFactoryConfiguration config = context
-                .getConnectionFactoryConfiguration();
+        ConnectionFactoryConfiguration config = context.getConnectionFactoryConfiguration();
         ConnectionFactory answer;
 
         String type;
@@ -309,8 +274,7 @@ public class ObjectFactory {
     }
 
     public static IntrospectedTable createIntrospectedTable(
-            TableConfiguration tableConfiguration, FullyQualifiedTable table,
-            Context context) {
+            TableConfiguration tableConfiguration, FullyQualifiedTable table, Context context) {
 
         IntrospectedTable answer = createIntrospectedTableForValidation(context);
         answer.setFullyQualifiedTable(table);
@@ -321,27 +285,25 @@ public class ObjectFactory {
 
     /**
      * Creates an introspected table implementation that is only usable for validation .
-     * 
      *
-     * @param context
-     *            the context
+     * @param context the context
      * @return the introspected table
      */
     public static IntrospectedTable createIntrospectedTableForValidation(Context context) {
         String type = context.getTargetRuntime();
         if (!stringHasValue(type)) {
             type = IntrospectedTableMyBatis3DynamicSqlImplV2.class.getName();
-        } else if ("MyBatis3".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("MyBatis3".equalsIgnoreCase(type)) { // $NON-NLS-1$
             type = IntrospectedTableMyBatis3Impl.class.getName();
-        } else if ("MyBatis3Simple".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("MyBatis3Simple".equalsIgnoreCase(type)) { // $NON-NLS-1$
             type = IntrospectedTableMyBatis3SimpleImpl.class.getName();
-        } else if ("MyBatis3DynamicSql".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("MyBatis3DynamicSql".equalsIgnoreCase(type)) { // $NON-NLS-1$
             type = IntrospectedTableMyBatis3DynamicSqlImplV2.class.getName();
-        } else if ("MyBatis3DynamicSqlV1".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("MyBatis3DynamicSqlV1".equalsIgnoreCase(type)) { // $NON-NLS-1$
             type = IntrospectedTableMyBatis3DynamicSqlImplV1.class.getName();
-        } else if ("MyBatis3DynamicSqlV2".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("MyBatis3DynamicSqlV2".equalsIgnoreCase(type)) { // $NON-NLS-1$
             type = IntrospectedTableMyBatis3DynamicSqlImplV2.class.getName();
-        } else if ("MyBatis3Kotlin".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("MyBatis3Kotlin".equalsIgnoreCase(type)) { // $NON-NLS-1$
             type = IntrospectedTableKotlinImpl.class.getName();
         }
 

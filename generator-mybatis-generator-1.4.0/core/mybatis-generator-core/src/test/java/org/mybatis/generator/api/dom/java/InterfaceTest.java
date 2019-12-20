@@ -1,28 +1,26 @@
 /**
- *    Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2019 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.api.dom.java;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.mybatis.generator.api.dom.java.render.TopLevelInterfaceRenderer;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.jupiter.api.Test;
-import org.mybatis.generator.api.dom.java.render.TopLevelInterfaceRenderer;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class InterfaceTest {
 
@@ -113,13 +111,19 @@ public class InterfaceTest {
         field = new Field("ONE", FullyQualifiedJavaType.getStringInstance());
         field.setInitializationString("\"one\"");
         interfaze.addField(field);
-        
-        String expected = "package foo;" + System.getProperty("line.separator")
-            + System.getProperty("line.separator")
-            + "public interface Bar {" + System.getProperty("line.separator")
-            + "    String EMPTY_STRING = \"\";" + System.getProperty("line.separator") + System.getProperty("line.separator")
-            + "    String ONE = \"one\";" + System.getProperty("line.separator")
-            + "}";
+
+        String expected =
+                "package foo;"
+                        + System.getProperty("line.separator")
+                        + System.getProperty("line.separator")
+                        + "public interface Bar {"
+                        + System.getProperty("line.separator")
+                        + "    String EMPTY_STRING = \"\";"
+                        + System.getProperty("line.separator")
+                        + System.getProperty("line.separator")
+                        + "    String ONE = \"one\";"
+                        + System.getProperty("line.separator")
+                        + "}";
 
         TopLevelInterfaceRenderer renderer = new TopLevelInterfaceRenderer();
         assertThat(renderer.render(interfaze)).isEqualTo(expected);

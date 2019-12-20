@@ -1,17 +1,15 @@
 /**
- *    Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2019 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.internal.util;
 
@@ -19,13 +17,13 @@ import java.lang.reflect.Array;
 
 /**
  * This class is from javapractices.com:
- * 
+ *
  * <p>http://www.javapractices.com/Topic28.cjp
- * 
+ *
  * <p>Collected methods which allow easy implementation of <code>hashCode</code>.
- * 
+ *
  * <p>Example use case:
- * 
+ *
  * <pre>
  * public int hashCode() {
  *     int result = HashCodeUtil.SEED;
@@ -41,11 +39,11 @@ public final class HashCodeUtil {
     private HashCodeUtil() {}
 
     /**
-     * An initial value for a <code>hashCode</code>, to which is added
-     * contributions from fields. Using a non-zero value decreases collisons of
-     * <code>hashCode</code> values.
+     * An initial value for a <code>hashCode</code>, to which is added contributions from fields.
+     * Using a non-zero value decreases collisons of <code>hashCode</code> values.
      */
     public static final int SEED = 23;
+
     private static final int ODD_PRIME_NUMBER = 37;
 
     public static int hash(int seed, boolean b) {
@@ -78,13 +76,12 @@ public final class HashCodeUtil {
 
     /**
      * <code>aObject</code> is a possibly-null object field, and possibly an array.
-     * 
-     * <p>If <code>aObject</code> is an array, then each element may be a primitive or a possibly-null object.
      *
-     * @param seed
-     *            the seed
-     * @param o
-     *            the object
+     * <p>If <code>aObject</code> is an array, then each element may be a primitive or a
+     * possibly-null object.
+     *
+     * @param seed the seed
+     * @param o the object
      * @return the hash code for an object
      */
     public static int hash(int seed, Object o) {

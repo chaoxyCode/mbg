@@ -1,24 +1,17 @@
 /**
- *    Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2019 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.internal;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.StringReader;
-import java.util.Properties;
 
 import org.junit.jupiter.api.Test;
 import org.mybatis.generator.api.CommentGenerator;
@@ -33,12 +26,16 @@ import org.mybatis.generator.codegen.XmlConstants;
 import org.mybatis.generator.config.PropertyRegistry;
 import org.xml.sax.InputSource;
 
+import java.io.StringReader;
+import java.util.Properties;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
- * This test is related to issue #87 where XML files are slightly different
- * after running through the XML merger.
- * 
- * @author Jeff Butler
+ * This test is related to issue #87 where XML files are slightly different after running through
+ * the XML merger.
  *
+ * @author Jeff Butler
  */
 public class XmlFileMergerTest {
 
@@ -50,54 +47,60 @@ public class XmlFileMergerTest {
         CommentGenerator commentGenerator = new DefaultCommentGenerator();
         commentGenerator.addConfigurationProperties(p);
 
-        Document document = new Document(XmlConstants.MYBATIS3_MAPPER_PUBLIC_ID,
-                XmlConstants.MYBATIS3_MAPPER_SYSTEM_ID);
+        Document document =
+                new Document(
+                        XmlConstants.MYBATIS3_MAPPER_PUBLIC_ID,
+                        XmlConstants.MYBATIS3_MAPPER_SYSTEM_ID);
         document.setRootElement(getSqlMapElement(commentGenerator));
 
-        GeneratedXmlFile generatedFile1 = new GeneratedXmlFile(document, "TestMapper.xml", "org.mybatis.test", "src",
-                true, xmlFormatter);
+        GeneratedXmlFile generatedFile1 =
+                new GeneratedXmlFile(
+                        document, "TestMapper.xml", "org.mybatis.test", "src", true, xmlFormatter);
         InputSource is1 = new InputSource(new StringReader(generatedFile1.getFormattedContent()));
 
-        GeneratedXmlFile generatedFile2 = new GeneratedXmlFile(document, "TestMapper.xml", "org.mybatis.test", "src",
-                true, xmlFormatter);
+        GeneratedXmlFile generatedFile2 =
+                new GeneratedXmlFile(
+                        document, "TestMapper.xml", "org.mybatis.test", "src", true, xmlFormatter);
         InputSource is2 = new InputSource(new StringReader(generatedFile2.getFormattedContent()));
 
         String mergedSource = XmlFileMergerJaxp.getMergedSource(is1, is2, "TestMapper.xml");
 
         assertEquals(generatedFile1.getFormattedContent(), mergedSource);
     }
-    
+
     @Test
     public void testThatOldElementsAreDeleted() throws Exception {
-        
-        Document existingDocument = new Document(XmlConstants.MYBATIS3_MAPPER_PUBLIC_ID,
-                XmlConstants.MYBATIS3_MAPPER_SYSTEM_ID);
+
+        Document existingDocument =
+                new Document(
+                        XmlConstants.MYBATIS3_MAPPER_PUBLIC_ID,
+                        XmlConstants.MYBATIS3_MAPPER_SYSTEM_ID);
         XmlElement root = new XmlElement("mapper");
         existingDocument.setRootElement(root);
-        
+
         XmlElement element = new XmlElement("select");
         element.addAttribute(new Attribute("id", "abatorgenerated_select"));
         root.addElement(element);
-        
+
         element = new XmlElement("select");
         element.addAttribute(new Attribute("id", "ibatorgenerated_select"));
         root.addElement(element);
-        
+
         element = new XmlElement("select");
         element.addAttribute(new Attribute("id", "oldway1"));
         element.addElement(new TextElement("<!-- @ibatorgenerated -->"));
         root.addElement(element);
-        
+
         element = new XmlElement("select");
         element.addAttribute(new Attribute("id", "oldway2"));
         element.addElement(new TextElement("<!-- @abatorgenerated -->"));
         root.addElement(element);
-        
+
         element = new XmlElement("select");
         element.addAttribute(new Attribute("id", "oldway3"));
         element.addElement(new TextElement("<!-- @mbggenerated -->"));
         root.addElement(element);
-        
+
         element = new XmlElement("select");
         element.addAttribute(new Attribute("id", "oldway4"));
         element.addElement(new TextElement("")); // add some white space for the test
@@ -107,22 +110,26 @@ public class XmlFileMergerTest {
         element = new XmlElement("select");
         element.addAttribute(new Attribute("id", "customSelect"));
         root.addElement(element);
-        
-        Document newDocument = new Document(XmlConstants.MYBATIS3_MAPPER_PUBLIC_ID,
-                XmlConstants.MYBATIS3_MAPPER_SYSTEM_ID);
+
+        Document newDocument =
+                new Document(
+                        XmlConstants.MYBATIS3_MAPPER_PUBLIC_ID,
+                        XmlConstants.MYBATIS3_MAPPER_SYSTEM_ID);
         root = new XmlElement("mapper");
         newDocument.setRootElement(root);
-        
+
         element = new XmlElement("select");
         element.addAttribute(new Attribute("id", "newway"));
         element.addElement(new TextElement("<!-- @mbg.generated -->"));
         root.addElement(element);
-        
-        Document expectedDocument = new Document(XmlConstants.MYBATIS3_MAPPER_PUBLIC_ID,
-                XmlConstants.MYBATIS3_MAPPER_SYSTEM_ID);
+
+        Document expectedDocument =
+                new Document(
+                        XmlConstants.MYBATIS3_MAPPER_PUBLIC_ID,
+                        XmlConstants.MYBATIS3_MAPPER_SYSTEM_ID);
         root = new XmlElement("mapper");
         expectedDocument.setRootElement(root);
-        
+
         element = new XmlElement("select");
         element.addAttribute(new Attribute("id", "newway"));
         element.addElement(new TextElement("<!-- @mbg.generated -->"));
@@ -131,20 +138,42 @@ public class XmlFileMergerTest {
         element = new XmlElement("select");
         element.addAttribute(new Attribute("id", "customSelect"));
         root.addElement(element);
-        
+
         DefaultXmlFormatter xmlFormatter = new DefaultXmlFormatter();
-        GeneratedXmlFile existingGeneratedFile = new GeneratedXmlFile(existingDocument, "TestMapper.xml", "org.mybatis.test", "src",
-                true, xmlFormatter);
-        InputSource existingFileInputSource = new InputSource(new StringReader(existingGeneratedFile.getFormattedContent()));
+        GeneratedXmlFile existingGeneratedFile =
+                new GeneratedXmlFile(
+                        existingDocument,
+                        "TestMapper.xml",
+                        "org.mybatis.test",
+                        "src",
+                        true,
+                        xmlFormatter);
+        InputSource existingFileInputSource =
+                new InputSource(new StringReader(existingGeneratedFile.getFormattedContent()));
 
-        GeneratedXmlFile newGeneratedFile = new GeneratedXmlFile(newDocument, "TestMapper.xml", "org.mybatis.test", "src",
-                true, xmlFormatter);
-        InputSource newFileInputSource = new InputSource(new StringReader(newGeneratedFile.getFormattedContent()));
-        
-        GeneratedXmlFile expectedGeneratedFile = new GeneratedXmlFile(expectedDocument, "TestMapper.xml", "org.mybatis.test", "src",
-                true, xmlFormatter);
+        GeneratedXmlFile newGeneratedFile =
+                new GeneratedXmlFile(
+                        newDocument,
+                        "TestMapper.xml",
+                        "org.mybatis.test",
+                        "src",
+                        true,
+                        xmlFormatter);
+        InputSource newFileInputSource =
+                new InputSource(new StringReader(newGeneratedFile.getFormattedContent()));
 
-        String mergedSource = XmlFileMergerJaxp.getMergedSource(newFileInputSource, existingFileInputSource, "TestMapper.xml");
+        GeneratedXmlFile expectedGeneratedFile =
+                new GeneratedXmlFile(
+                        expectedDocument,
+                        "TestMapper.xml",
+                        "org.mybatis.test",
+                        "src",
+                        true,
+                        xmlFormatter);
+
+        String mergedSource =
+                XmlFileMergerJaxp.getMergedSource(
+                        newFileInputSource, existingFileInputSource, "TestMapper.xml");
 
         assertEquals(expectedGeneratedFile.getFormattedContent(), mergedSource);
     }

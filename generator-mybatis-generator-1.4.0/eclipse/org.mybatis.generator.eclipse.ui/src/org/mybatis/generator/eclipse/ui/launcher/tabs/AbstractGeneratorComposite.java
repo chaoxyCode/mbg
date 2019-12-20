@@ -1,21 +1,17 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
+ * Copyright 2006-2016 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.eclipse.ui.launcher.tabs;
-
-import java.io.File;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -35,12 +31,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.model.WorkbenchContentProvider;
@@ -51,37 +42,42 @@ import org.mybatis.generator.eclipse.ui.launcher.GeneratorLaunchConstants;
 import org.mybatis.generator.eclipse.ui.launcher.GeneratorLaunchShortcut;
 import org.mybatis.generator.internal.util.StringUtility;
 
+import java.io.File;
+
 /**
- * This abstract class includes support and UI for selecting a file from the
- * workspace or file system.
- * 
- * This class is heavily influenced by the Eclipse XSL launcher UI and I am
- * grateful for the inspiration.
- * 
- * @author Jeff Butler
+ * This abstract class includes support and UI for selecting a file from the workspace or file
+ * system.
  *
+ * <p>This class is heavily influenced by the Eclipse XSL launcher UI and I am grateful for the
+ * inspiration.
+ *
+ * @author Jeff Butler
  */
-public abstract class AbstractGeneratorComposite extends Composite implements GeneratorLaunchConstants {
+public abstract class AbstractGeneratorComposite extends Composite
+        implements GeneratorLaunchConstants {
 
     protected Text txtFileName;
     protected String javaProjectName;
     private Button btnBrowseWorkplace;
     private Button btnBrowseFileSystem;
 
-    private ISelectionStatusValidator selectionStatusVerifier = new ISelectionStatusValidator() {
-        @Override
-        public IStatus validate(Object[] selection) {
-            if (selection.length == 0) {
-                return new Status(Status.ERROR, Activator.PLUGIN_ID, 0, "", null); //$NON-NLS-1$
-            }
-            for (int i = 0; i < selection.length; i++) {
-                if (!(selection[i] instanceof IFile)) {
-                    return new Status(Status.ERROR, Activator.PLUGIN_ID, 0, "", null); //$NON-NLS-1$
+    private ISelectionStatusValidator selectionStatusVerifier =
+            new ISelectionStatusValidator() {
+                @Override
+                public IStatus validate(Object[] selection) {
+                    if (selection.length == 0) {
+                        return new Status(
+                                Status.ERROR, Activator.PLUGIN_ID, 0, "", null); // $NON-NLS-1$
+                    }
+                    for (int i = 0; i < selection.length; i++) {
+                        if (!(selection[i] instanceof IFile)) {
+                            return new Status(
+                                    Status.ERROR, Activator.PLUGIN_ID, 0, "", null); // $NON-NLS-1$
+                        }
+                    }
+                    return new Status(Status.OK, Activator.PLUGIN_ID, 0, "", null); // $NON-NLS-1$
                 }
-            }
-            return new Status(Status.OK, Activator.PLUGIN_ID, 0, "", null); //$NON-NLS-1$
-        }
-    };
+            };
 
     public AbstractGeneratorComposite(Composite parent, int style) {
         super(parent, style);
@@ -113,12 +109,13 @@ public abstract class AbstractGeneratorComposite extends Composite implements Ge
         fileNameComposite.setLayoutData(gd);
 
         txtFileName = new Text(fileNameComposite, SWT.SINGLE | SWT.BORDER);
-        txtFileName.addModifyListener(new ModifyListener() {
-            @Override
-            public void modifyText(ModifyEvent e) {
-                updateLaunchConfigurationDialog();
-            }
-        });
+        txtFileName.addModifyListener(
+                new ModifyListener() {
+                    @Override
+                    public void modifyText(ModifyEvent e) {
+                        updateLaunchConfigurationDialog();
+                    }
+                });
         gd = new GridData(SWT.FILL, SWT.CENTER, true, false);
         txtFileName.setLayoutData(gd);
         txtFileName.setFont(parent.getFont());
@@ -137,32 +134,40 @@ public abstract class AbstractGeneratorComposite extends Composite implements Ge
         buttonComposite.setFont(parent.getFont());
 
         btnBrowseWorkplace = new Button(buttonComposite, SWT.NONE);
-        btnBrowseWorkplace.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                IResource chosenFile = chooseFileFromWorkspace();
-                if (chosenFile != null) {
-                    IPath path = chosenFile.getFullPath();
-                    txtFileName.setText("${workspace_loc:" + path.toString() + "}"); //$NON-NLS-1$ //$NON-NLS-2$
-                    javaProjectName = GeneratorLaunchShortcut.getJavaProjectNameFromResource(chosenFile);
-                }
-            }
-        });
+        btnBrowseWorkplace.addSelectionListener(
+                new SelectionAdapter() {
+                    @Override
+                    public void widgetSelected(SelectionEvent e) {
+                        IResource chosenFile = chooseFileFromWorkspace();
+                        if (chosenFile != null) {
+                            IPath path = chosenFile.getFullPath();
+                            txtFileName.setText(
+                                    "${workspace_loc:"
+                                            + path.toString()
+                                            + "}"); //$NON-NLS-1$ //$NON-NLS-2$
+                            javaProjectName =
+                                    GeneratorLaunchShortcut.getJavaProjectNameFromResource(
+                                            chosenFile);
+                        }
+                    }
+                });
         btnBrowseWorkplace.setText(Messages.FILE_PICKER_BROWSE_WORKSPACE);
 
         btnBrowseFileSystem = new Button(buttonComposite, SWT.NONE);
-        btnBrowseFileSystem.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                chooseFileFromFileSystem();
-            }
-        });
+        btnBrowseFileSystem.addSelectionListener(
+                new SelectionAdapter() {
+                    @Override
+                    public void widgetSelected(SelectionEvent e) {
+                        chooseFileFromFileSystem();
+                    }
+                });
         btnBrowseFileSystem.setText(Messages.FILE_PICKER_BROWSE_FILE_SYSTEM);
     }
 
     protected IResource chooseFileFromWorkspace() {
-        ElementTreeSelectionDialog esd = new ElementTreeSelectionDialog(getShell(), new WorkbenchLabelProvider(),
-                new WorkbenchContentProvider());
+        ElementTreeSelectionDialog esd =
+                new ElementTreeSelectionDialog(
+                        getShell(), new WorkbenchLabelProvider(), new WorkbenchContentProvider());
         esd.setTitle(getDialogTitle());
         esd.setMessage(getDialogMessage());
         esd.setAllowMultiple(false);
@@ -186,8 +191,9 @@ public abstract class AbstractGeneratorComposite extends Composite implements Ge
         if (path.length() > 0) {
             IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
             try {
-                if (path.startsWith("${workspace_loc:")) { //$NON-NLS-1$
-                    IStringVariableManager manager = VariablesPlugin.getDefault().getStringVariableManager();
+                if (path.startsWith("${workspace_loc:")) { // $NON-NLS-1$
+                    IStringVariableManager manager =
+                            VariablesPlugin.getDefault().getStringVariableManager();
                     path = manager.performStringSubstitution(path, false);
                 }
                 File f = new File(path);
@@ -224,8 +230,12 @@ public abstract class AbstractGeneratorComposite extends Composite implements Ge
     }
 
     protected abstract void updateLaunchConfigurationDialog();
+
     protected abstract String getDialogTitle();
+
     protected abstract String getDialogMessage();
+
     protected abstract String[] getAcceptableFileExtension();
+
     protected abstract ViewerFilter getViewerFilter();
 }

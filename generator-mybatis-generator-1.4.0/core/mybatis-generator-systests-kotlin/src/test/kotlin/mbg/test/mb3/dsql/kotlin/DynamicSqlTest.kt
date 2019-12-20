@@ -420,7 +420,7 @@ class DynamicSqlTest : AbstractTest() {
             val returnedRecord = mapper.selectByPrimaryKey(2, 1)
 
             assertThat(returnedRecord).isNotNull()
-            if(returnedRecord != null) {
+            if (returnedRecord != null) {
                 assertEquals(record.datefield, returnedRecord.datefield)
                 assertEquals(record.decimal100field, returnedRecord.decimal100field)
                 assertEquals(record.decimal155field, returnedRecord.decimal155field)

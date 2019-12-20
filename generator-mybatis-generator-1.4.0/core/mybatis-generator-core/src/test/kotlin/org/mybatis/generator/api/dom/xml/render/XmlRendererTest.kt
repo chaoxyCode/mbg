@@ -110,9 +110,9 @@ class XmlRendererTest {
         val root = XmlElement("root")
         root.addAttribute(Attribute("firstName", "Fred"))
         root.addAttribute(Attribute("lastName", "Flintstone"))
-        
+
         root.addElement(TextElement("some content"));
-        
+
         doc.setRootElement(root);
 
         val expected = """
@@ -134,7 +134,7 @@ class XmlRendererTest {
         root.addAttribute(Attribute("lastName", "Flintstone"))
 
         root.addElement(TextElement("some content"));
-        
+
         val child = XmlElement("child")
         child.addAttribute(Attribute("firstName", "Pebbles"))
         child.addAttribute(Attribute("lastName", "Flintstone"))

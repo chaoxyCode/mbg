@@ -1,56 +1,30 @@
 /**
- *    Copyright 2006-2018 the original author or authors.
+ * Copyright 2006-2018 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mbg.test.mb3.annotated.conditional;
+
+import mbg.test.mb3.generated.annotated.conditional.mapper.*;
+import mbg.test.mb3.generated.annotated.conditional.model.*;
+import org.apache.ibatis.session.SqlSession;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static mbg.test.common.util.TestUtilities.blobsAreEqual;
 import static mbg.test.common.util.TestUtilities.generateRandomBlob;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
-
-import org.apache.ibatis.session.SqlSession;
-import org.junit.jupiter.api.Test;
-
-import mbg.test.mb3.generated.annotated.conditional.mapper.AwfulTableMapper;
-import mbg.test.mb3.generated.annotated.conditional.mapper.FieldsblobsMapper;
-import mbg.test.mb3.generated.annotated.conditional.mapper.FieldsonlyMapper;
-import mbg.test.mb3.generated.annotated.conditional.mapper.PkblobsMapper;
-import mbg.test.mb3.generated.annotated.conditional.mapper.PkfieldsMapper;
-import mbg.test.mb3.generated.annotated.conditional.mapper.PkfieldsblobsMapper;
-import mbg.test.mb3.generated.annotated.conditional.mapper.PkonlyMapper;
-import mbg.test.mb3.generated.annotated.conditional.model.AwfulTable;
-import mbg.test.mb3.generated.annotated.conditional.model.AwfulTableExample;
-import mbg.test.mb3.generated.annotated.conditional.model.FieldsblobsExample;
-import mbg.test.mb3.generated.annotated.conditional.model.FieldsblobsWithBLOBs;
-import mbg.test.mb3.generated.annotated.conditional.model.Fieldsonly;
-import mbg.test.mb3.generated.annotated.conditional.model.FieldsonlyExample;
-import mbg.test.mb3.generated.annotated.conditional.model.Pkblobs;
-import mbg.test.mb3.generated.annotated.conditional.model.PkblobsExample;
-import mbg.test.mb3.generated.annotated.conditional.model.Pkfields;
-import mbg.test.mb3.generated.annotated.conditional.model.PkfieldsExample;
-import mbg.test.mb3.generated.annotated.conditional.model.Pkfieldsblobs;
-import mbg.test.mb3.generated.annotated.conditional.model.PkfieldsblobsExample;
-import mbg.test.mb3.generated.annotated.conditional.model.PkonlyExample;
-import mbg.test.mb3.generated.annotated.conditional.model.PkonlyKey;
-
-/**
- * 
- * @author Jeff Butler
- *
- */
+/** @author Jeff Butler */
 public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
 
     @Test
@@ -81,7 +55,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setDoublefield(99d);
             FieldsonlyExample example = new FieldsonlyExample();
             example.createCriteria().andIntegerfieldGreaterThan(5);
-            
+
             int rows = mapper.updateByExampleSelective(record, example);
             assertEquals(2, rows);
 
@@ -93,7 +67,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             assertEquals(record.getDoublefield(), 11.22, 0.001);
             assertEquals(record.getFloatfield(), 33.44, 0.001);
             assertEquals(record.getIntegerfield().intValue(), 5);
-            
+
             example.clear();
             example.createCriteria().andIntegerfieldEqualTo(8);
             answer = mapper.selectByExample(example);
@@ -102,7 +76,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             assertEquals(record.getDoublefield(), 99d, 0.001);
             assertEquals(record.getFloatfield(), 66.77, 0.001);
             assertEquals(record.getIntegerfield().intValue(), 8);
-            
+
             example.clear();
             example.createCriteria().andIntegerfieldEqualTo(9);
             answer = mapper.selectByExample(example);
@@ -144,7 +118,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setIntegerfield(22);
             FieldsonlyExample example = new FieldsonlyExample();
             example.createCriteria().andIntegerfieldEqualTo(5);
-            
+
             int rows = mapper.updateByExample(record, example);
             assertEquals(1, rows);
 
@@ -190,18 +164,14 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             assertEquals(2, rows);
 
             example.clear();
-            example.createCriteria()
-                .andIdEqualTo(5)
-                .andSeqNumEqualTo(3);
-            
+            example.createCriteria().andIdEqualTo(5).andSeqNumEqualTo(3);
+
             long returnedRows = mapper.countByExample(example);
             assertEquals(1, returnedRows);
-            
+
             example.clear();
-            example.createCriteria()
-                .andIdEqualTo(7)
-                .andSeqNumEqualTo(3);
-            
+            example.createCriteria().andIdEqualTo(7).andSeqNumEqualTo(3);
+
             returnedRows = mapper.countByExample(example);
             assertEquals(1, returnedRows);
         } finally {
@@ -234,16 +204,13 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             key.setSeqNum(3);
             key.setId(22);
             PkonlyExample example = new PkonlyExample();
-            example.createCriteria()
-                .andIdEqualTo(7);
+            example.createCriteria().andIdEqualTo(7);
             int rows = mapper.updateByExample(key, example);
             assertEquals(1, rows);
 
             example.clear();
-            example.createCriteria()
-                .andIdEqualTo(22)
-                .andSeqNumEqualTo(3);
-            
+            example.createCriteria().andIdEqualTo(22).andSeqNumEqualTo(3);
+
             long returnedRows = mapper.countByExample(example);
             assertEquals(1, returnedRows);
         } finally {
@@ -254,7 +221,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
     @Test
     public void testPKFieldsUpdateByExampleSelective() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-    
+
         try {
             PkfieldsMapper mapper = sqlSession.getMapper(PkfieldsMapper.class);
             Pkfields record = new Pkfields();
@@ -263,13 +230,13 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setId1(1);
             record.setId2(2);
             mapper.insert(record);
-    
+
             record = new Pkfields();
             record.setFirstname("Bob");
             record.setLastname("Jones");
             record.setId1(3);
             record.setId2(4);
-    
+
             mapper.insert(record);
 
             record = new Pkfields();
@@ -278,14 +245,14 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             example.createCriteria().andLastnameLike("J%");
             int rows = mapper.updateByExampleSelective(record, example);
             assertEquals(1, rows);
-            
+
             example.clear();
             example.createCriteria()
-                .andFirstnameEqualTo("Fred")
-                .andLastnameEqualTo("Jones")
-                .andId1EqualTo(3)
-                .andId2EqualTo(4);
-    
+                    .andFirstnameEqualTo("Fred")
+                    .andLastnameEqualTo("Jones")
+                    .andId1EqualTo(3)
+                    .andId2EqualTo(4);
+
             long returnedRows = mapper.countByExample(example);
             assertEquals(1, returnedRows);
         } finally {
@@ -296,7 +263,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
     @Test
     public void testPKFieldsUpdateByExample() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-    
+
         try {
             PkfieldsMapper mapper = sqlSession.getMapper(PkfieldsMapper.class);
             Pkfields record = new Pkfields();
@@ -305,13 +272,13 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setId1(1);
             record.setId2(2);
             mapper.insert(record);
-    
+
             record = new Pkfields();
             record.setFirstname("Bob");
             record.setLastname("Jones");
             record.setId1(3);
             record.setId2(4);
-    
+
             mapper.insert(record);
 
             record = new Pkfields();
@@ -319,20 +286,18 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setId1(3);
             record.setId2(4);
             PkfieldsExample example = new PkfieldsExample();
-            example.createCriteria()
-                .andId1EqualTo(3)
-                .andId2EqualTo(4);
-            
+            example.createCriteria().andId1EqualTo(3).andId2EqualTo(4);
+
             int rows = mapper.updateByExample(record, example);
             assertEquals(1, rows);
-            
+
             example.clear();
             example.createCriteria()
-                .andFirstnameEqualTo("Fred")
-                .andLastnameIsNull()
-                .andId1EqualTo(3)
-                .andId2EqualTo(4);
-    
+                    .andFirstnameEqualTo("Fred")
+                    .andLastnameIsNull()
+                    .andId1EqualTo(3)
+                    .andId2EqualTo(4);
+
             long returnedRows = mapper.countByExample(example);
             assertEquals(1, returnedRows);
         } finally {
@@ -343,7 +308,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
     @Test
     public void testPKBlobsUpdateByExampleSelective() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-    
+
         try {
             PkblobsMapper mapper = sqlSession.getMapper(PkblobsMapper.class);
             Pkblobs record = new Pkblobs();
@@ -351,26 +316,26 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setBlob1(generateRandomBlob());
             record.setBlob2(generateRandomBlob());
             mapper.insert(record);
-    
+
             record = new Pkblobs();
             record.setId(6);
             record.setBlob1(generateRandomBlob());
             record.setBlob2(generateRandomBlob());
             mapper.insert(record);
-    
+
             Pkblobs newRecord = new Pkblobs();
             newRecord.setBlob1(generateRandomBlob());
-            
+
             PkblobsExample example = new PkblobsExample();
             example.createCriteria().andIdGreaterThan(4);
             int rows = mapper.updateByExampleSelective(newRecord, example);
             assertEquals(1, rows);
-            
+
             List<Pkblobs> answer = mapper.selectByExampleWithBLOBs(example);
             assertEquals(1, answer.size());
-            
+
             Pkblobs returnedRecord = answer.get(0);
-            
+
             assertEquals(6, returnedRecord.getId().intValue());
             assertTrue(blobsAreEqual(newRecord.getBlob1(), returnedRecord.getBlob1()));
             assertTrue(blobsAreEqual(record.getBlob2(), returnedRecord.getBlob2()));
@@ -382,7 +347,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
     @Test
     public void testPKBlobsUpdateByExampleWithoutBLOBs() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-    
+
         try {
             PkblobsMapper mapper = sqlSession.getMapper(PkblobsMapper.class);
             Pkblobs record = new Pkblobs();
@@ -390,26 +355,26 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setBlob1(generateRandomBlob());
             record.setBlob2(generateRandomBlob());
             mapper.insert(record);
-    
+
             record = new Pkblobs();
             record.setId(6);
             record.setBlob1(generateRandomBlob());
             record.setBlob2(generateRandomBlob());
             mapper.insert(record);
-    
+
             Pkblobs newRecord = new Pkblobs();
             newRecord.setId(8);
-            
+
             PkblobsExample example = new PkblobsExample();
             example.createCriteria().andIdGreaterThan(4);
             int rows = mapper.updateByExample(newRecord, example);
             assertEquals(1, rows);
-            
+
             List<Pkblobs> answer = mapper.selectByExampleWithBLOBs(example);
             assertEquals(1, answer.size());
-            
+
             Pkblobs returnedRecord = answer.get(0);
-            
+
             assertEquals(8, returnedRecord.getId().intValue());
             assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
             assertTrue(blobsAreEqual(record.getBlob2(), returnedRecord.getBlob2()));
@@ -421,7 +386,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
     @Test
     public void testPKBlobsUpdateByExampleWithBLOBs() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-    
+
         try {
             PkblobsMapper mapper = sqlSession.getMapper(PkblobsMapper.class);
             Pkblobs record = new Pkblobs();
@@ -429,26 +394,26 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setBlob1(generateRandomBlob());
             record.setBlob2(generateRandomBlob());
             mapper.insert(record);
-    
+
             record = new Pkblobs();
             record.setId(6);
             record.setBlob1(generateRandomBlob());
             record.setBlob2(generateRandomBlob());
             mapper.insert(record);
-    
+
             Pkblobs newRecord = new Pkblobs();
             newRecord.setId(8);
-            
+
             PkblobsExample example = new PkblobsExample();
             example.createCriteria().andIdGreaterThan(4);
             int rows = mapper.updateByExampleWithBLOBs(newRecord, example);
             assertEquals(1, rows);
-            
+
             List<Pkblobs> answer = mapper.selectByExampleWithBLOBs(example);
             assertEquals(1, answer.size());
-            
+
             Pkblobs returnedRecord = answer.get(0);
-            
+
             assertEquals(8, returnedRecord.getId().intValue());
             assertNull(returnedRecord.getBlob1());
             assertNull(returnedRecord.getBlob2());
@@ -460,7 +425,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
     @Test
     public void testPKFieldsBlobsUpdateByExampleSelective() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-    
+
         try {
             PkfieldsblobsMapper mapper = sqlSession.getMapper(PkfieldsblobsMapper.class);
             Pkfieldsblobs record = new Pkfieldsblobs();
@@ -470,7 +435,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setLastname("Smith");
             record.setBlob1(generateRandomBlob());
             mapper.insert(record);
-    
+
             record = new Pkfieldsblobs();
             record.setId1(5);
             record.setId2(6);
@@ -485,18 +450,18 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             example.createCriteria().andId1NotEqualTo(3);
             int rows = mapper.updateByExampleSelective(newRecord, example);
             assertEquals(1, rows);
-    
+
             List<Pkfieldsblobs> answer = mapper.selectByExampleWithBLOBs(example);
             assertEquals(1, answer.size());
-            
+
             Pkfieldsblobs returnedRecord = answer.get(0);
-            
+
             assertEquals(record.getId1(), returnedRecord.getId1());
             assertEquals(record.getId2(), returnedRecord.getId2());
             assertEquals(newRecord.getFirstname(), returnedRecord.getFirstname());
             assertEquals(record.getLastname(), returnedRecord.getLastname());
             assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
-            
+
         } finally {
             sqlSession.close();
         }
@@ -505,7 +470,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
     @Test
     public void testPKFieldsBlobsUpdateByExampleWithoutBLOBs() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-    
+
         try {
             PkfieldsblobsMapper mapper = sqlSession.getMapper(PkfieldsblobsMapper.class);
             Pkfieldsblobs record = new Pkfieldsblobs();
@@ -515,7 +480,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setLastname("Smith");
             record.setBlob1(generateRandomBlob());
             mapper.insert(record);
-    
+
             record = new Pkfieldsblobs();
             record.setId1(5);
             record.setId2(6);
@@ -532,18 +497,18 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             example.createCriteria().andId1EqualTo(5);
             int rows = mapper.updateByExample(newRecord, example);
             assertEquals(1, rows);
-    
+
             List<Pkfieldsblobs> answer = mapper.selectByExampleWithBLOBs(example);
             assertEquals(1, answer.size());
-            
+
             Pkfieldsblobs returnedRecord = answer.get(0);
-            
+
             assertEquals(newRecord.getId1(), returnedRecord.getId1());
             assertEquals(newRecord.getId2(), returnedRecord.getId2());
             assertEquals(newRecord.getFirstname(), returnedRecord.getFirstname());
             assertNull(returnedRecord.getLastname());
             assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
-            
+
         } finally {
             sqlSession.close();
         }
@@ -552,7 +517,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
     @Test
     public void testPKFieldsBlobsUpdateByExampleWithBLOBs() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-    
+
         try {
             PkfieldsblobsMapper mapper = sqlSession.getMapper(PkfieldsblobsMapper.class);
             Pkfieldsblobs record = new Pkfieldsblobs();
@@ -562,7 +527,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setLastname("Smith");
             record.setBlob1(generateRandomBlob());
             mapper.insert(record);
-    
+
             record = new Pkfieldsblobs();
             record.setId1(5);
             record.setId2(6);
@@ -579,18 +544,18 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             example.createCriteria().andId1EqualTo(3);
             int rows = mapper.updateByExampleWithBLOBs(newRecord, example);
             assertEquals(1, rows);
-    
+
             List<Pkfieldsblobs> answer = mapper.selectByExampleWithBLOBs(example);
             assertEquals(1, answer.size());
-            
+
             Pkfieldsblobs returnedRecord = answer.get(0);
-            
+
             assertEquals(newRecord.getId1(), returnedRecord.getId1());
             assertEquals(newRecord.getId2(), returnedRecord.getId2());
             assertEquals(newRecord.getFirstname(), returnedRecord.getFirstname());
             assertNull(returnedRecord.getLastname());
             assertNull(returnedRecord.getBlob1());
-            
+
         } finally {
             sqlSession.close();
         }
@@ -599,7 +564,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
     @Test
     public void testFieldsBlobsUpdateByExampleSelective() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-    
+
         try {
             FieldsblobsMapper mapper = sqlSession.getMapper(FieldsblobsMapper.class);
             FieldsblobsWithBLOBs record = new FieldsblobsWithBLOBs();
@@ -608,7 +573,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setBlob1(generateRandomBlob());
             record.setBlob2(generateRandomBlob());
             mapper.insert(record);
-    
+
             record = new FieldsblobsWithBLOBs();
             record.setFirstname("Scott");
             record.setLastname("Jones");
@@ -622,12 +587,12 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             example.createCriteria().andFirstnameLike("S%");
             int rows = mapper.updateByExampleSelective(newRecord, example);
             assertEquals(1, rows);
-            
+
             List<FieldsblobsWithBLOBs> answer = mapper.selectByExampleWithBLOBs(example);
             assertEquals(1, answer.size());
-            
+
             FieldsblobsWithBLOBs returnedRecord = answer.get(0);
-            
+
             assertEquals(record.getFirstname(), returnedRecord.getFirstname());
             assertEquals(newRecord.getLastname(), returnedRecord.getLastname());
             assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
@@ -640,7 +605,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
     @Test
     public void testFieldsBlobsUpdateByExampleWithoutBLOBs() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-    
+
         try {
             FieldsblobsMapper mapper = sqlSession.getMapper(FieldsblobsMapper.class);
             FieldsblobsWithBLOBs record = new FieldsblobsWithBLOBs();
@@ -649,7 +614,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setBlob1(generateRandomBlob());
             record.setBlob2(generateRandomBlob());
             mapper.insert(record);
-    
+
             record = new FieldsblobsWithBLOBs();
             record.setFirstname("Scott");
             record.setLastname("Jones");
@@ -664,12 +629,12 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             example.createCriteria().andFirstnameLike("S%");
             int rows = mapper.updateByExample(newRecord, example);
             assertEquals(1, rows);
-            
+
             List<FieldsblobsWithBLOBs> answer = mapper.selectByExampleWithBLOBs(example);
             assertEquals(1, answer.size());
-            
+
             FieldsblobsWithBLOBs returnedRecord = answer.get(0);
-            
+
             assertEquals(newRecord.getFirstname(), returnedRecord.getFirstname());
             assertEquals(newRecord.getLastname(), returnedRecord.getLastname());
             assertTrue(blobsAreEqual(record.getBlob1(), returnedRecord.getBlob1()));
@@ -682,7 +647,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
     @Test
     public void testFieldsBlobsUpdateByExampleWithBLOBs() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-    
+
         try {
             FieldsblobsMapper mapper = sqlSession.getMapper(FieldsblobsMapper.class);
             FieldsblobsWithBLOBs record = new FieldsblobsWithBLOBs();
@@ -691,7 +656,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setBlob1(generateRandomBlob());
             record.setBlob2(generateRandomBlob());
             mapper.insert(record);
-    
+
             record = new FieldsblobsWithBLOBs();
             record.setFirstname("Scott");
             record.setLastname("Jones");
@@ -706,12 +671,12 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             example.createCriteria().andFirstnameLike("S%");
             int rows = mapper.updateByExampleWithBLOBs(newRecord, example);
             assertEquals(1, rows);
-            
+
             List<FieldsblobsWithBLOBs> answer = mapper.selectByExampleWithBLOBs(example);
             assertEquals(1, answer.size());
-            
+
             FieldsblobsWithBLOBs returnedRecord = answer.get(0);
-            
+
             assertEquals(newRecord.getFirstname(), returnedRecord.getFirstname());
             assertEquals(newRecord.getLastname(), returnedRecord.getLastname());
             assertNull(returnedRecord.getBlob1());
@@ -724,7 +689,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
     @Test
     public void testAwfulTableUpdateByExampleSelective() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-    
+
         try {
             AwfulTableMapper mapper = sqlSession.getMapper(AwfulTableMapper.class);
             AwfulTable record = new AwfulTable();
@@ -739,9 +704,9 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setId7(7);
             record.setSecondFirstName("fred2");
             record.setThirdFirstName("fred3");
-    
+
             mapper.insert(record);
-    
+
             record = new AwfulTable();
             record.seteMail("fred2@fred.com");
             record.setEmailaddress("alsofred2@fred.com");
@@ -754,21 +719,21 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setId7(77);
             record.setSecondFirstName("fred22");
             record.setThirdFirstName("fred33");
-    
+
             mapper.insert(record);
-    
+
             AwfulTable newRecord = new AwfulTable();
             newRecord.setFirstFirstName("Alonzo");
             AwfulTableExample example = new AwfulTableExample();
             example.createCriteria().andEMailLike("fred2@%");
             int rows = mapper.updateByExampleSelective(newRecord, example);
             assertEquals(1, rows);
-    
+
             List<AwfulTable> answer = mapper.selectByExample(example);
             assertEquals(1, answer.size());
 
             AwfulTable returnedRecord = answer.get(0);
-            
+
             assertEquals(record.getCustomerId(), returnedRecord.getCustomerId());
             assertEquals(record.geteMail(), returnedRecord.geteMail());
             assertEquals(record.getEmailaddress(), returnedRecord.getEmailaddress());
@@ -781,7 +746,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             assertEquals(record.getId7(), returnedRecord.getId7());
             assertEquals(record.getSecondFirstName(), returnedRecord.getSecondFirstName());
             assertEquals(record.getThirdFirstName(), returnedRecord.getThirdFirstName());
-            
+
         } finally {
             sqlSession.close();
         }
@@ -790,7 +755,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
     @Test
     public void testAwfulTableUpdateByExample() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-    
+
         try {
             AwfulTableMapper mapper = sqlSession.getMapper(AwfulTableMapper.class);
             AwfulTable record = new AwfulTable();
@@ -805,9 +770,9 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setId7(7);
             record.setSecondFirstName("fred2");
             record.setThirdFirstName("fred3");
-    
+
             mapper.insert(record);
-    
+
             record = new AwfulTable();
             record.seteMail("fred2@fred.com");
             record.setEmailaddress("alsofred2@fred.com");
@@ -820,9 +785,9 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             record.setId7(77);
             record.setSecondFirstName("fred22");
             record.setThirdFirstName("fred33");
-    
+
             mapper.insert(record);
-    
+
             AwfulTable newRecord = new AwfulTable();
             newRecord.setFirstFirstName("Alonzo");
             newRecord.setCustomerId(58);
@@ -831,7 +796,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             newRecord.setId5(555);
             newRecord.setId6(666);
             newRecord.setId7(777);
-            
+
             AwfulTableExample example = new AwfulTableExample();
             example.createCriteria().andEMailLike("fred2@%");
             int rows = mapper.updateByExample(newRecord, example);
@@ -843,7 +808,7 @@ public class UpdateByExampleTest extends AbstractAnnotatedConditionalTest {
             assertEquals(1, answer.size());
 
             AwfulTable returnedRecord = answer.get(0);
-            
+
             assertEquals(newRecord.getCustomerId(), returnedRecord.getCustomerId());
             assertNull(returnedRecord.geteMail());
             assertNull(returnedRecord.getEmailaddress());

@@ -1,50 +1,34 @@
 /**
- *    Copyright 2006-2018 the original author or authors.
+ * Copyright 2006-2018 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * <p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.eclipse.core.tests.callback;
+
+import org.eclipse.core.resources.*;
+import org.eclipse.core.runtime.*;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
-
 /**
- * A lot of this code was originally copied from org.eclipse.jdt.core.tests.util and
- * other classes in the eclipse test projects.
- * 
- * Method in this class should only be used by the ShellCallbackTests because they
- * require a project in the workspace.
- * 
+ * A lot of this code was originally copied from org.eclipse.jdt.core.tests.util and other classes
+ * in the eclipse test projects.
+ *
+ * <p>Method in this class should only be used by the ShellCallbackTests because they require a
+ * project in the workspace.
  */
 public class WorkspaceUtilities {
     private static int DELETE_MAX_WAIT = 10000;
@@ -56,13 +40,14 @@ public class WorkspaceUtilities {
 
     private static IProject createProject(String projectName) throws CoreException {
         final IProject project = getWorkspaceRoot().getProject(projectName);
-        IWorkspaceRunnable create = new IWorkspaceRunnable() {
-            @Override
-            public void run(IProgressMonitor monitor) throws CoreException {
-                project.create(null);
-                project.open(null);
-            }
-        };
+        IWorkspaceRunnable create =
+                new IWorkspaceRunnable() {
+                    @Override
+                    public void run(IProgressMonitor monitor) throws CoreException {
+                        project.create(null);
+                        project.open(null);
+                    }
+                };
         getWorkspace().run(create, null);
         return project;
     }
@@ -78,89 +63,104 @@ public class WorkspaceUtilities {
     private static void addJavaNature(String projectName) throws CoreException {
         IProject project = getWorkspaceRoot().getProject(projectName);
         IProjectDescription description = project.getDescription();
-        description.setNatureIds(new String[] { JavaCore.NATURE_ID });
+        description.setNatureIds(new String[] {JavaCore.NATURE_ID});
         project.setDescription(description, null);
     }
 
-    static IJavaProject createJavaProject(final String projectName, final String[] sourceFolders,
-            final String projectOutput, final String compliance) throws CoreException {
+    static IJavaProject createJavaProject(
+            final String projectName,
+            final String[] sourceFolders,
+            final String projectOutput,
+            final String compliance)
+            throws CoreException {
 
         final IJavaProject[] result = new IJavaProject[1];
-        IWorkspaceRunnable create = new IWorkspaceRunnable() {
-            @Override
-            public void run(IProgressMonitor monitor) throws CoreException {
-                // create project
-                createProject(projectName);
+        IWorkspaceRunnable create =
+                new IWorkspaceRunnable() {
+                    @Override
+                    public void run(IProgressMonitor monitor) throws CoreException {
+                        // create project
+                        createProject(projectName);
 
-                // set java nature
-                addJavaNature(projectName);
+                        // set java nature
+                        addJavaNature(projectName);
 
-                // create classpath entries
-                IProject project = getWorkspaceRoot().getProject(projectName);
-                IPath projectPath = project.getFullPath();
-                int sourceLength = sourceFolders == null ? 0 : sourceFolders.length;
-                IClasspathEntry[] entries = new IClasspathEntry[sourceLength];
-                for (int i = 0; i < sourceLength; i++) {
-                    IPath sourcePath = new Path(sourceFolders[i]);
-                    int segmentCount = sourcePath.segmentCount();
-                    if (segmentCount > 0) {
-                        // create folder and its parents
-                        IContainer container = project;
-                        for (int j = 0; j < segmentCount; j++) {
-                            IFolder folder = container.getFolder(new Path(sourcePath.segment(j)));
-                            if (!folder.exists()) {
-                                folder.create(true, true, null);
+                        // create classpath entries
+                        IProject project = getWorkspaceRoot().getProject(projectName);
+                        IPath projectPath = project.getFullPath();
+                        int sourceLength = sourceFolders == null ? 0 : sourceFolders.length;
+                        IClasspathEntry[] entries = new IClasspathEntry[sourceLength];
+                        for (int i = 0; i < sourceLength; i++) {
+                            IPath sourcePath = new Path(sourceFolders[i]);
+                            int segmentCount = sourcePath.segmentCount();
+                            if (segmentCount > 0) {
+                                // create folder and its parents
+                                IContainer container = project;
+                                for (int j = 0; j < segmentCount; j++) {
+                                    IFolder folder =
+                                            container.getFolder(new Path(sourcePath.segment(j)));
+                                    if (!folder.exists()) {
+                                        folder.create(true, true, null);
+                                    }
+                                    container = folder;
+                                }
                             }
-                            container = folder;
+                            // create source entry
+                            entries[i] = JavaCore.newSourceEntry(projectPath.append(sourcePath));
                         }
+
+                        // create project's output folder
+                        IPath outputPath = new Path(projectOutput);
+                        if (outputPath.segmentCount() > 0) {
+                            IFolder output = project.getFolder(outputPath);
+                            if (!output.exists()) {
+                                output.create(true, true, monitor);
+                            }
+                        }
+
+                        // set classpath and output location
+                        IJavaProject javaProject = JavaCore.create(project);
+                        javaProject.setRawClasspath(
+                                entries, projectPath.append(outputPath), monitor);
+
+                        // set compliance level options
+                        if ("1.5".equals(compliance)) {
+                            Map<String, String> options = new HashMap<>();
+                            options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_5);
+                            options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_5);
+                            options.put(
+                                    JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM,
+                                    JavaCore.VERSION_1_5);
+                            javaProject.setOptions(options);
+                        } else if ("1.6".equals(compliance)) {
+                            Map<String, String> options = new HashMap<>();
+                            options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_6);
+                            options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_6);
+                            options.put(
+                                    JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM,
+                                    JavaCore.VERSION_1_6);
+                            javaProject.setOptions(options);
+                        } else if ("1.7".equals(compliance)) {
+                            Map<String, String> options = new HashMap<>();
+                            options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_7);
+                            options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_7);
+                            options.put(
+                                    JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM,
+                                    JavaCore.VERSION_1_7);
+                            javaProject.setOptions(options);
+                        } else if ("1.8".equals(compliance)) {
+                            Map<String, String> options = new HashMap<>();
+                            options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_8);
+                            options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_8);
+                            options.put(
+                                    JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM,
+                                    JavaCore.VERSION_1_8);
+                            javaProject.setOptions(options);
+                        }
+
+                        result[0] = javaProject;
                     }
-                    // create source entry
-                    entries[i] = JavaCore.newSourceEntry(projectPath.append(sourcePath));
-                }
-
-                // create project's output folder
-                IPath outputPath = new Path(projectOutput);
-                if (outputPath.segmentCount() > 0) {
-                    IFolder output = project.getFolder(outputPath);
-                    if (!output.exists()) {
-                        output.create(true, true, monitor);
-                    }
-                }
-
-                // set classpath and output location
-                IJavaProject javaProject = JavaCore.create(project);
-                javaProject.setRawClasspath(entries, projectPath.append(outputPath), monitor);
-
-                // set compliance level options
-                if ("1.5".equals(compliance)) {
-                    Map<String, String> options = new HashMap<>();
-                    options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_5);
-                    options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_5);
-                    options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_5);
-                    javaProject.setOptions(options);
-                } else if ("1.6".equals(compliance)) {
-                    Map<String, String> options = new HashMap<>();
-                    options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_6);
-                    options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_6);
-                    options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_6);
-                    javaProject.setOptions(options);
-                } else if ("1.7".equals(compliance)) {
-                    Map<String, String> options = new HashMap<>();
-                    options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_7);
-                    options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_7);
-                    options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_7);
-                    javaProject.setOptions(options);
-                } else if ("1.8".equals(compliance)) {
-                    Map<String, String> options = new HashMap<>();
-                    options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_8);
-                    options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_8);
-                    options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_8);
-                    javaProject.setOptions(options);
-                }
-
-                result[0] = javaProject;
-            }
-        };
+                };
         getWorkspace().run(create, null);
         return result[0];
     }
@@ -168,9 +168,9 @@ public class WorkspaceUtilities {
     static void deleteProject(String projectName) throws CoreException {
         IProject project = getProject(projectName);
         if (project.exists() && !project.isOpen()) { // force opening so that
-                                                     // project can be deleted
-                                                     // without logging (see bug
-                                                     // 23629)
+            // project can be deleted
+            // without logging (see bug
+            // 23629)
             project.open(null);
         }
         deleteResource(project);
@@ -198,7 +198,7 @@ public class WorkspaceUtilities {
         if (parent == null || !parent.exists()) {
             return null;
         }
-        
+
         try {
             IResource[] members = parent.members();
             int length = members == null ? 0 : members.length;
@@ -254,8 +254,7 @@ public class WorkspaceUtilities {
                 count++;
                 Thread.sleep(delay);
                 time += delay;
-                if (time > DELETE_MAX_TIME)
-                    DELETE_MAX_TIME = time;
+                if (time > DELETE_MAX_TIME) DELETE_MAX_TIME = time;
                 if (resource.isAccessible()) {
                     try {
                         resource.delete(true, null);

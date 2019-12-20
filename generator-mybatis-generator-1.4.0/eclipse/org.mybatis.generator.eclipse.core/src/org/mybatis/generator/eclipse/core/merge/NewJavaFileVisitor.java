@@ -16,23 +16,12 @@
 
 package org.mybatis.generator.eclipse.core.merge;
 
+import org.eclipse.jdt.core.dom.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.ASTVisitor;
-import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.EnumDeclaration;
-import org.eclipse.jdt.core.dom.FieldDeclaration;
-import org.eclipse.jdt.core.dom.ImportDeclaration;
-import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.eclipse.jdt.core.dom.Type;
-import org.eclipse.jdt.core.dom.TypeDeclaration;
-
-/**
- * @author Jeff Butler
- *
- */
+/** @author Jeff Butler */
 public class NewJavaFileVisitor extends ASTVisitor {
     private List<ASTNode> newNodes;
     private List<ImportDeclaration> imports;
@@ -40,9 +29,7 @@ public class NewJavaFileVisitor extends ASTVisitor {
     private boolean isInterface;
     private List<Type> superInterfaceTypes;
 
-    /**
-     * 
-     */
+    /** */
     public NewJavaFileVisitor() {
         super();
         newNodes = new ArrayList<>();
@@ -75,11 +62,11 @@ public class NewJavaFileVisitor extends ASTVisitor {
         // make sure we don't pick up the top level class
         if (node.getParent().getNodeType() == ASTNode.COMPILATION_UNIT) {
             isInterface = node.isInterface();
-            
+
             superclass = node.getSuperclassType();
 
             superInterfaceTypes = node.superInterfaceTypes();
-            
+
             return true;
         } else {
             newNodes.add(node);

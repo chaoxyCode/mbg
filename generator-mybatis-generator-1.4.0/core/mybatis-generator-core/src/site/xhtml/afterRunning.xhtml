@@ -17,37 +17,37 @@
 
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>Tasks After Running MyBatis Generator</title>
-  <link rel="stylesheet" type="text/css" href="mbgstyle.css" />
+    <title>Tasks After Running MyBatis Generator</title>
+    <link rel="stylesheet" type="text/css" href="mbgstyle.css"/>
 </head>
 <body>
 <h1>Tasks After Running MyBatis Generator</h1>
 <p>After you run MyBatis Generator (MBG), you will need to create or modify
-   other MyBatis configuration
-   artifacts.  The main task is to create or modify a MapperConfig.xml file.</p>
+    other MyBatis configuration
+    artifacts. The main task is to create or modify a MapperConfig.xml file.</p>
 
 <h2>Updating the MapperConfig.xml File (MyBatis 3.x)</h2>
 <p>MyBatis 3.x uses an XML file, commonly named <code>MapperConfig.xml</code>,
-to specify
-information for a database connection, a transaction management scheme, and XML mapper
-files that will be used in a MyBatis session.  MBG cannot create this file for you
-because it knows nothing about your execution environment.  However, some of the
-items in this file relate directly to MBG generated items.  Please refer to
-the standard MyBatis data mapper developer guide for details about the different
-configuration options.</p>
+    to specify
+    information for a database connection, a transaction management scheme, and XML mapper
+    files that will be used in a MyBatis session. MBG cannot create this file for you
+    because it knows nothing about your execution environment. However, some of the
+    items in this file relate directly to MBG generated items. Please refer to
+    the standard MyBatis data mapper developer guide for details about the different
+    configuration options.</p>
 
 <p>MBG specific needs in the configuration file are as follows:</p>
 <ul>
-  <li>MBG generated XML mapper files must be listed</li>
+    <li>MBG generated XML mapper files must be listed</li>
 </ul>
 
 <p>For example, suppose that MBG has generated an XML mapper file called
-<code>MyTableMapper.xml</code>, and that the file has been placed in the
-<code>test.xml</code> package
-of your project.  The <code>MapperConfig.xml</code> file should have these entries:</p>
+    <code>MyTableMapper.xml</code>, and that the file has been placed in the
+    <code>test.xml</code> package
+    of your project. The <code>MapperConfig.xml</code> file should have these entries:</p>
 <pre>
   &lt;?xml version="1.0" encoding="UTF-8"?&gt;
   &lt;!DOCTYPE configuration
@@ -76,11 +76,11 @@ of your project.  The <code>MapperConfig.xml</code> file should have these entri
 </pre>
 
 <p>If there is more than one XML mapper file (as is quite common),
-then the files can be listed in any order with repeated <code>&lt;mapper&gt;</code>
-elements after the <code>&lt;mappers&gt;</code> element.</p>
+    then the files can be listed in any order with repeated <code>&lt;mapper&gt;</code>
+    elements after the <code>&lt;mappers&gt;</code> element.</p>
 
 <p>If you use Java based configuration, or Spring, then you will need to register mappers with your configuration
-in the manner applicable for your environment.</p>
+    in the manner applicable for your environment.</p>
 
 </body>
 </html>
