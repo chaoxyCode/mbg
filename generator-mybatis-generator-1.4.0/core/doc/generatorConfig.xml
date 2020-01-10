@@ -97,14 +97,22 @@
                 scale=0;length<5：使用Short；
          -->
         <property name="forceBigDecimals" value="false"/>
-    </javaTypeResolver>
-    
-    
-    <!-- java模型创建器，是必须要的元素
-        负责：1，key类（见context的defaultModelType）；2，java类；3，查询类
-        targetPackage：生成的类要放的包，真实的包受enableSubPackages属性控制；
-        targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
-     -->
+    <!--
+        此属性用于指定MyBatis Generator是否应对DATE，TIME和TIMESTAMP字段强制使用JSR-310数据类型，而不是使用java.util.Date。如果为true，则将按以下方式解析类型：
+        JDBC类型	    解析的Java类型
+        DATE	        java.time.LocalDate
+        TIME	        java.time.LocalTime
+        TIMESTAMP	    java.time.LocalDateTime
+    -->
+    <property name="useJSR310Types" value="true"/>
+</javaTypeResolver>
+
+
+<!-- java模型创建器，是必须要的元素
+    负责：1，key类（见context的defaultModelType）；2，java类；3，查询类
+    targetPackage：生成的类要放的包，真实的包受enableSubPackages属性控制；
+    targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
+ -->
     <javaModelGenerator targetPackage="com.issue.manage.mybatis.domain" targetProject="src/main/java">
         <!--  for MyBatis3/MyBatis3Simple
             自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；
