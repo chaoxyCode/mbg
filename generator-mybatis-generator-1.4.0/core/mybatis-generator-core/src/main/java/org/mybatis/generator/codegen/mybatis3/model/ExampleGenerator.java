@@ -1,5 +1,5 @@
 /**
- * Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2020 the original author or authors.
  *
  * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License at
@@ -409,8 +409,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
             field =
                     new Field(
                             "allCriteria", //$NON-NLS-1$
-                            new FullyQualifiedJavaType(
-                                    "List<Criterion>")); //$NON-NLS-1$
+                            new FullyQualifiedJavaType("List<Criterion>")); // $NON-NLS-1$
             field.setVisibility(JavaVisibility.PROTECTED);
             answer.addField(field);
         }

@@ -17,11 +17,7 @@ package org.mybatis.generator.api.dom.java.render
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType
-import org.mybatis.generator.api.dom.java.JavaVisibility
-import org.mybatis.generator.api.dom.java.Method
-import org.mybatis.generator.api.dom.java.Parameter
-import org.mybatis.generator.api.dom.java.TypeParameter
+import org.mybatis.generator.api.dom.java.*
 
 class MethodRendererTest {
 

@@ -1,5 +1,5 @@
 /**
- * Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2020 the original author or authors.
  *
  * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License at
@@ -40,7 +40,7 @@ public class GeneralUpdateMethodGenerator extends AbstractKotlinFunctionGenerato
                                                 "update(this::update, "
                                                         + tableFieldName
                                                         + ", completer)") //$NON-NLS-1$
-                                                                          // //$NON-NLS-2$
+                                        // //$NON-NLS-2$
                                         .build())
                         .withImport("org.mybatis.dynamic.sql.util.kotlin.*") // $NON-NLS-1$
                         .withImport("org.mybatis.dynamic.sql.util.kotlin.mybatis3.*") // $NON-NLS-1$

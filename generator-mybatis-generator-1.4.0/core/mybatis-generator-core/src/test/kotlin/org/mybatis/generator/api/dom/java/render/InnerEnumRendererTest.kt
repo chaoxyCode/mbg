@@ -17,15 +17,7 @@ package org.mybatis.generator.api.dom.java.render
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import org.mybatis.generator.api.dom.java.Field
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType
-import org.mybatis.generator.api.dom.java.InnerClass
-import org.mybatis.generator.api.dom.java.InnerEnum
-import org.mybatis.generator.api.dom.java.InnerInterface
-import org.mybatis.generator.api.dom.java.JavaVisibility
-import org.mybatis.generator.api.dom.java.Method
-import org.mybatis.generator.api.dom.java.Parameter
-import org.mybatis.generator.api.dom.java.TopLevelEnumeration
+import org.mybatis.generator.api.dom.java.*
 
 class InnerEnumRendererTest {
     @Test
